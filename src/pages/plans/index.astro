@@ -8,7 +8,7 @@ import site from '../../data/site.json';
 
 const title = '費用・区画・永代供養｜岩手の樹木葬';
 const description =
-  '青松山 平成院 植樹葬霊園の費用。樹木選択型墓地（直径2.0m区画）300,000円、樹木限定型墓地（直径1.5m区画）200,000円、いずれも入会金なし・年会費5,000円。永代供養墓は400,000円・年会費3,000円です。';
+  '青松山 平成院 植樹葬霊園の費用。樹木選択型墓地（2.0m区画）300,000円、樹木限定型墓地（1.5m区画）200,000円、いずれも入会金なし・年会費5,000円。永代供養墓は400,000円・年会費3,000円です。';
 
 const jsonLd = [
   {
@@ -28,14 +28,14 @@ const jsonLd = [
   <div class="page-head wrap">
     <h1>費用・区画・永代供養</h1>
     <p class="lead">
-      平成院には、ご自身で花木を植える「植樹葬墓地」が2種類と、平成院が没後の供養を継続する「永代供養墓」があります。
+      平成院には、ご自身で花木を植える「植樹葬墓地」が2種類と、平成院が没後の供養を継続する「永代供養墓」があります。植樹葬墓地の使用は、会員一代限りです。
     </p>
   </div>
 
   {/* ---------- 植樹葬墓地 ---------- */}
   <section class="section wrap" aria-labelledby="planting-graves">
-    <p class="section__label">植樹葬墓地</p>
-    <h2 class="section__title" id="planting-graves">ご自身で花木を植える墓地</h2>
+    <p class="section__label">墓地の種類</p>
+    <h2 class="section__title" id="planting-graves">植樹葬墓地</h2>
 
     <div class="plans-grid" style="margin-top:var(--s7)">
       {plans.plantingGraves.map((plan) => <PlanCard plan={plan} />)}

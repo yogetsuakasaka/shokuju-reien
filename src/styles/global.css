@@ -926,6 +926,31 @@ a[href^="tel:"]:not(.btn):not(.tel-big):not(.header-tel):not(.is-primary) {
   line-height: 1.4;
 }
 
+/* --------------------------------------------------------- 規約の条文 */
+/* 原文を読みやすく置くための、見た目だけの調整。文言は一切変えない。 */
+.article {
+  margin-top: var(--s7);
+  padding-top: var(--s5);
+  border-top: 1px solid var(--line);
+}
+
+.article__no {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--s3);
+}
+
+.article__body {
+  font-size: 1rem;
+  line-height: 1.95;
+}
+
+.article__body + .article__body {
+  margin-top: var(--s4);
+}
+
 /* -------------------------------------------------------------- card link */
 .linkcards {
   list-style: none;
