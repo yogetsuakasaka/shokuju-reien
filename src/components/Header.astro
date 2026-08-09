@@ -1,0 +1,54 @@
+---
+import site from '../data/site.json';
+
+interface Props {
+  path: string;
+}
+const { path } = Astro.props;
+
+// ナビゲーションはここだけを編集すれば全ページに反映される。
+const nav = [
+  { href: '/', label: 'ホーム', primary: false },
+  { href: '/concept/', label: '植樹葬とは', primary: true },
+  { href: '/plans/', label: '費用', primary: true },
+  { href: '/faq/', label: 'よくあるご質問', primary: true },
+  { href: '/access/', label: 'アクセス', primary: true },
+  { href: '/about/', label: '平成院について', primary: true },
+  { href: '/rules/', label: '霊園規約', primary: false },
+];
+
+const isCurrent = (href: string) => (href === path ? 'page' : undefined);
+---
+
+<header class="site-header">
+  <div class="wrap site-header__bar">
+    <a class="site-header__brand" href="/">
+      <b>青松山 平成院 植樹葬霊園</b>
+      <span>岩手県九戸郡洋野町</span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="メインメニュー">
+      {
+        nav
+          .filter((n) => n.primary)
+          .map((n) => (
+            <a href={n.href} aria-current={isCurrent(n.href)}>
+              {n.label}
+            </a>
+          ))
+      }
+    </nav>
+
+    <a class="header-tel" href={site.office.telHref} aria-label={`霊園事務局に電話する ${site.office.tel}`}>
+      <span aria-hidden="true">☎</span>
+      <span class="header-tel__num">{site.office.tel}</span>
+    </a>
+
+    <details class="menu">
+      <summary class="menu__toggle" aria-label="メニューを開く">メニュー</summary>
+      <nav class="menu__panel" aria-label="サイト内のページ">
+        {nav.map((n) => <a href={n.href} aria-current={isCurrent(n.href)}>{n.label}</a>)}
+      </nav>
+    </details>
+  </div>
+</header>

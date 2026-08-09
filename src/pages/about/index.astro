@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Figure from '../../components/Figure.astro';
+import site from '../../data/site.json';
+
+const title = '霊園と管理者について';
+const description =
+  '青松山 平成院 植樹葬霊園について。管理者は宗教法人 青松山 平成院、所在地は岩手県九戸郡洋野町大野11-30-53。14,000坪の境内に植樹葬墓地と永代供養墓があります。';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://shokuju-reien.jp/' },
+      { '@type': 'ListItem', position: 2, name: '平成院について', item: 'https://shokuju-reien.jp/about/' },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} path="/about/" jsonLd={jsonLd}>
+  <Breadcrumb current="平成院について" />
+
+  <div class="page-head wrap">
+    <h1>平成院について</h1>
+    <p class="lead">
+      岩手県九戸郡洋野町。{site.areaSize}の境内に、植樹葬墓地と永代供養墓があります。
+    </p>
+  </div>
+
+  <section class="section--tight wrap">
+    <Figure name="about-grounds" sizes="100vw" />
+  </section>
+
+  <section class="section wrap" aria-labelledby="overview">
+    <h2 class="section__title" id="overview">霊園の概要</h2>
+    <dl class="info" style="margin-top:var(--s6)">
+      <div>
+        <dt>名称</dt>
+        <dd>{site.name}</dd>
+      </div>
+      <div>
+        <dt>管理者</dt>
+        <dd>{site.organization}</dd>
+      </div>
+      <div>
+        <dt>管理責任者</dt>
+        <dd>{site.representative}</dd>
+      </div>
+      <div>
+        <dt>所在地</dt>
+        <dd>
+          〒{site.office.postalCode}　{site.office.address}
+        </dd>
+      </div>
+      <div>
+        <dt>敷地面積</dt>
+        <dd>{site.areaSize}</dd>
+      </div>
+      <div>
+        <dt>電話・FAX</dt>
+        <dd>
+          <a href={site.office.telHref}>TEL {site.office.tel}</a>　/　FAX {site.office.fax}
+        </dd>
+      </div>
+      <div>
+        <dt>{site.hachinohe.label}</dt>
+        <dd>
+          {site.hachinohe.address}　<a href={site.hachinohe.telHref}>TEL {site.hachinohe.tel}</a>
+        </dd>
+      </div>
+      <div>
+        <dt>墓地の種類</dt>
+        <dd>植樹葬墓地（樹木選択型・樹木限定型）／永代供養墓</dd>
+      </div>
+      <div>
+        <dt>宗教・宗派</dt>
+        <dd>問いません（霊園規約 第3条）</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="section section--stone" aria-labelledby="memorial">
+    <div class="wrap-text prose">
+      <h2 class="section__title" id="memorial">合同追悼式</h2>
+      <p>{site.memorialService.statement}</p>
+      <p>{site.memorialService.scope}</p>
+      <p>{site.memorialService.officiant}</p>
+    </div>
+  </section>
+
+  <section class="section--tight wrap">
+    <Figure name="monument-wa" sizes="(min-width: 900px) 70vw, 92vw" caption="境内の石碑「和」" />
+  </section>
+
+  <section class="section">
+    <div class="wrap-text prose">
+      <h2>墓参について</h2>
+      <p>
+        お参りいただける期間は、原則として{site.visit.period}の{site.visit.hours}です。{site.visit.note}
+      </p>
+
+      <ul class="linkcards" style="margin-top:var(--s8)">
+        <li><a href="/concept/">植樹葬とは</a></li>
+        <li><a href="/plans/">費用と区画</a></li>
+        <li><a href="/rules/">霊園規約</a></li>
+        <li><a href="/access/">アクセス・ご見学</a></li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

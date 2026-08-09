@@ -1,0 +1,48 @@
+---
+import site from '../data/site.json';
+---
+
+<footer class="site-footer">
+  <div class="wrap site-footer__grid">
+    <div>
+      <h2>{site.name}</h2>
+      <address>
+        〒{site.office.postalCode}<br />
+        {site.office.address}<br />
+        <a href={site.office.telHref}>TEL {site.office.tel}</a><br />
+        FAX {site.office.fax}
+      </address>
+      <p class="note" style="margin-top:var(--s4)">
+        {site.hachinohe.label}／{site.hachinohe.address}<br />
+        <a href={site.hachinohe.telHref}>TEL {site.hachinohe.tel}</a>
+      </p>
+    </div>
+
+    <div>
+      <h2>ご案内</h2>
+      <ul>
+        <li><a href="/concept/">植樹葬とは</a></li>
+        <li><a href="/plans/">費用・区画・永代供養</a></li>
+        <li><a href="/faq/">よくあるご質問</a></li>
+        <li><a href="/access/">アクセス・ご見学</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>霊園について</h2>
+      <ul>
+        <li><a href="/about/">平成院について</a></li>
+        <li><a href="/rules/">霊園規約</a></li>
+      </ul>
+      <p class="note" style="margin-top:var(--s5)">
+        墓参できる期間：{site.visit.period}<br />
+        {site.visit.hours}
+      </p>
+    </div>
+  </div>
+
+  <div class="wrap site-footer__legal">
+    <p>管理者：{site.organization}／{site.representative}</p>
+    <p>© {new Date().getFullYear()} {site.organization}</p>
+  </div>
+</footer>

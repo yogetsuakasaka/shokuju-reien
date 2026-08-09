@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import site from '../../data/site.json';
+
+const title = '霊園規約';
+const description =
+  '青松山 平成院 植樹葬霊園の規約について。宗教・宗派（第3条）、植樹葬墓地の趣旨（第13条）、儀礼と合同追悼式（第18条）など、サイトでご案内している内容の根拠となる定めをまとめています。';
+
+/**
+ * このページは、いずれ規約の全文を掲載できるようにするための土台。
+ * 現在は「サイト上の記載の根拠となる、確認済みの定め」だけを載せている。
+ * 全文が用意できたら、下の sections に条文を追加していく（CLAUDE.md 参照）。
+ */
+const sections = [
+  {
+    id: 'article-3',
+    heading: '第3条（入会）',
+    points: ['宗教・宗派を問わず、ご入会いただけます。'],
+  },
+  {
+    id: 'article-13',
+    heading: '第13条（植樹葬墓地の趣旨）',
+    points: [
+      '人としてこの世に生を受け、自然界の恵みを一身に受けながら生かされてきたことへの感謝の証しとして植樹し、没後、自ら植えた樹木のそばで大地に還る、という趣旨で植樹葬墓地が設けられています。',
+      '植樹葬墓地の使用には、会員本人による生前の明確な意思表示が必要です。',
+      '墓地の使用は、会員一代限りです。',
+    ],
+  },
+  {
+    id: 'article-18',
+    heading: '第18条（儀礼）',
+    points: [
+      '植樹葬墓地では、自ら信ずる宗教・宗派等に基づく儀礼を自由に行えます。',
+      'ただし、合同追悼式については管理者が執行します。',
+    ],
+  },
+  {
+    id: 'planting',
+    heading: '植樹について',
+    points: [
+      '植樹の日時は事前に管理者と協議し、管理者立会いのもとで行います。',
+      `植樹できる期間は、${site.planting.period}です。`,
+      '苗木代と植樹費用は会員の負担です。用具類は管理者が無料で貸与します。',
+    ],
+  },
+  {
+    id: 'burial',
+    heading: '埋蔵について',
+    points: [
+      '会員没後、自ら植えた樹木のもとへ埋蔵することができます。',
+      '焼骨は、管理者が用意した、数年経てば土に溶ける埋蔵用容器へ移し替え、管理者立会いのもと土中へ埋蔵します。',
+      '焼骨以外の副葬品等は埋蔵できません。',
+    ],
+  },
+  {
+    id: 'fee',
+    heading: '会費について',
+    points: ['植樹葬の会費は、会員没後、相続等により他人へ承継されません。'],
+  },
+  {
+    id: 'eitai',
+    heading: '永代供養墓について',
+    points: [
+      '祭祀承継者に代わって、平成院が没後の供養を継続します。',
+      '焼骨は骨壷のまま、永代供養墓内の納骨室に33年間安置します。',
+      '33年経過後は、所定区域内の自然の土に還す方法で合葬します。',
+    ],
+  },
+  {
+    id: 'memorial',
+    heading: '合同追悼式について',
+    points: [
+      '特別の事情がない限り、毎年5月第3日曜日 午前10時30分から、永代供養墓前で追悼式を行います。',
+      '植樹葬墓地についても、同じ合同追悼式が適用されます。',
+    ],
+  },
+  {
+    id: 'visit',
+    heading: '墓参について',
+    points: [
+      `原則として、${site.visit.period}の${site.visit.hours}です。`,
+      '気象条件により墓参できない場合があるため、管理者への事前連絡が必要です。',
+    ],
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://shokuju-reien.jp/' },
+      { '@type': 'ListItem', position: 2, name: '霊園規約', item: 'https://shokuju-reien.jp/rules/' },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} path="/rules/" jsonLd={jsonLd}>
+  <Breadcrumb current="霊園規約" />
+
+  <div class="page-head wrap">
+    <h1>霊園規約</h1>
+    <p>
+      このページでは、当サイトでご案内している内容の根拠となる、霊園規約の主な定めをまとめています。
+    </p>
+  </div>
+
+  <section class="section wrap-text prose">
+    <p class="source-note">
+      以下は規約の要点です。規約の全文をご覧になりたい方は、霊園事務局（<a href={site.office.telHref}
+        >{site.office.tel}</a
+      >）へお問い合わせください。
+    </p>
+
+    {
+      sections.map((s) => (
+        <section id={s.id} style="margin-top:var(--s8)">
+          <h2>{s.heading}</h2>
+          <ul style="margin-top:var(--s4)">
+            {s.points.map((p) => (
+              <li>{p}</li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+
+    <ul class="linkcards" style="margin-top:var(--s9)">
+      <li><a href="/concept/">植樹葬とは</a></li>
+      <li><a href="/plans/">費用と区画</a></li>
+      <li><a href="/faq/">よくあるご質問</a></li>
+      <li><a href="/access/">アクセス・ご見学</a></li>
+    </ul>
+  </section>
+</BaseLayout>

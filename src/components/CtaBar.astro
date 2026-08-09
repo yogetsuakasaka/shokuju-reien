@@ -1,0 +1,26 @@
+---
+/**
+ * スマートフォン用の固定CTA。
+ * Hero を過ぎてから静かに出る。JS が動かない場合は表示されないが、
+ * 電話番号はヘッダー・本文・フッターにも常にあるので情報は失われない。
+ */
+import site from '../data/site.json';
+
+interface Props {
+  path: string;
+}
+const { path } = Astro.props;
+
+// アクセスページでは「見学のご相談」が同じページを指してしまうため、行き先を変える。
+const secondary =
+  path === '/access/'
+    ? { href: '/plans/', label: '費用を見る' }
+    : { href: '/access/', label: '見学のご相談' };
+---
+
+<div class="cta-bar" id="cta-bar">
+  <a class="is-primary" href={site.office.telHref}>
+    <span aria-hidden="true" style="margin-right:6px">☎</span>お電話する
+  </a>
+  <a class="is-secondary" href={secondary.href}>{secondary.label}</a>
+</div>

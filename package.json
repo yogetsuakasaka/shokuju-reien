@@ -1,0 +1,18 @@
+{
+  "name": "shokuju-reien",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "青松山 平成院 植樹葬霊園 公式サイト",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && npm run check:todo",
+    "preview": "astro preview",
+    "check:todo": "node scripts/check-todo.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.6.0",
+    "astro": "^5.16.0",
+    "sharp": "^0.34.5"
+  }
+}

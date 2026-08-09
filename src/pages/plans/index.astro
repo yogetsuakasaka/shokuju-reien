@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import PlanCard from '../../components/PlanCard.astro';
+import Figure from '../../components/Figure.astro';
+import plans from '../../data/plans.json';
+import site from '../../data/site.json';
+
+const title = '費用・区画・永代供養｜岩手の樹木葬';
+const description =
+  '青松山 平成院 植樹葬霊園の費用。樹木選択型墓地（直径2.0m区画）300,000円、樹木限定型墓地（直径1.5m区画）200,000円、いずれも入会金なし・年会費5,000円。永代供養墓は400,000円・年会費3,000円です。';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://shokuju-reien.jp/' },
+      { '@type': 'ListItem', position: 2, name: '費用', item: 'https://shokuju-reien.jp/plans/' },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} path="/plans/" jsonLd={jsonLd}>
+  <Breadcrumb current="費用" />
+
+  <div class="page-head wrap">
+    <h1>費用・区画・永代供養</h1>
+    <p class="lead">
+      平成院には、ご自身で花木を植える「植樹葬墓地」が2種類と、平成院が没後の供養を継続する「永代供養墓」があります。
+    </p>
+  </div>
+
+  {/* ---------- 植樹葬墓地 ---------- */}
+  <section class="section wrap" aria-labelledby="planting-graves">
+    <p class="section__label">植樹葬墓地</p>
+    <h2 class="section__title" id="planting-graves">ご自身で花木を植える墓地</h2>
+
+    <div class="plans-grid" style="margin-top:var(--s7)">
+      {plans.plantingGraves.map((plan) => <PlanCard plan={plan} />)}
+    </div>
+
+    <div class="plan" style="margin-top:var(--s5)">
+      <h3 class="plan__name">{plans.burialWork.name}</h3>
+      <p class="plan__price">
+        <b>{plans.burialWork.priceText}</b>
+      </p>
+      <p class="plan__body">{plans.burialWork.note}</p>
+    </div>
+
+    <div class="prose" style="margin-top:var(--s7)">
+      <h3>植樹について</h3>
+      <ul>
+        <li>ご契約のときに墓標となる花木を選び、その苗木を植えます。{site.planting.support}</li>
+        <li>{site.planting.attendance}</li>
+        <li>植樹できる期間：{site.planting.period}</li>
+        <li>{site.planting.cost}</li>
+      </ul>
+
+      <h3>墓地の使用と会費について</h3>
+      <ul>
+        <li>植樹葬墓地の使用には、会員ご本人による生前の明確な意思表示が必要です。</li>
+        <li>墓地の使用は、会員一代限りです。</li>
+        <li>植樹葬の会費は、会員が亡くなられた後、相続などによって他の方へ承継されることはありません。</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <Figure name="plans-section" sizes="100vw" />
+  </div>
+
+  {/* ---------- 永代供養墓 ---------- */}
+  <section class="section section--stone" aria-labelledby="eitai">
+    <div class="wrap">
+      <p class="section__label">永代供養墓</p>
+      <h2 class="section__title" id="eitai">平成院が供養を継続する墓所</h2>
+
+      <div class="plan" style="margin-top:var(--s7)">
+        <h3 class="plan__name">{plans.eternal.name}</h3>
+        <p class="plan__price">
+          <b>{plans.eternal.priceText}</b>
+        </p>
+        <dl class="plan__meta">
+          {
+            plans.eternal.breakdown.map((b) => (
+              <div>
+                <dt>{b.label}</dt>
+                <dd>{b.amountText}</dd>
+              </div>
+            ))
+          }
+          <div>
+            <dt>年会費</dt>
+            <dd>{plans.eternal.annualFeeText.replace('年会費 ', '')}</dd>
+          </div>
+        </dl>
+        <div class="plan__body">
+          <p>{plans.eternal.succession}</p>
+          <p style="margin-top:var(--s3)">{plans.eternal.storage}</p>
+          <p style="margin-top:var(--s3)">{plans.eternal.afterTerm}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- 注記 ---------- */}
+  <section class="section">
+    <div class="wrap-text prose">
+      <p class="source-note">{plans.footnote}</p>
+
+      <h2>ご相談・ご見学</h2>
+      <p>費用や区画について、まずはお電話でお気軽にご相談ください。</p>
+      <p style="margin-top:var(--s5)">
+        <a class="tel-big" href={site.office.telHref}>
+          <span aria-hidden="true">☎</span>{site.office.tel}
+        </a>
+      </p>
+      <p class="note">
+        {site.hachinohe.label}　<a href={site.hachinohe.telHref}>{site.hachinohe.tel}</a>
+      </p>
+
+      <ul class="linkcards" style="margin-top:var(--s8)">
+        <li><a href="/concept/">植樹葬とは</a></li>
+        <li><a href="/faq/">よくあるご質問</a></li>
+        <li><a href="/access/">アクセス・ご見学</a></li>
+        <li><a href="/rules/">霊園規約</a></li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

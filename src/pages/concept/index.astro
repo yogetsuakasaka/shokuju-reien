@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Figure from '../../components/Figure.astro';
+import site from '../../data/site.json';
+import trees from '../../data/trees.json';
+
+const title = '植樹葬とは｜自分の木を植える樹木葬';
+const description =
+  '平成院の植樹葬は、生前にご自身で墓標となる花木を選び、苗木を植えるところから始まります。没後は自ら植えた樹木のもとへ埋蔵され、焼骨は数年で土に溶ける容器に移し替えられます。霊園規約に基づく考え方をご説明します。';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://shokuju-reien.jp/' },
+      { '@type': 'ListItem', position: 2, name: '植樹葬とは', item: 'https://shokuju-reien.jp/concept/' },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} path="/concept/" jsonLd={jsonLd}>
+  <Breadcrumb current="植樹葬とは" />
+
+  <div class="page-head wrap">
+    <h1>植樹葬とは</h1>
+    <p class="lead">
+      多くの樹木葬では、すでにそこにある木の周囲に納骨します。平成院の植樹葬は、ご契約のときにご自身で墓標となる花木を選び、その苗木を植えるところから始まります。
+    </p>
+  </div>
+
+  <div class="wrap-text prose section">
+    <h2>植樹葬の理念</h2>
+    <p>
+      霊園規約 第13条は、植樹葬墓地の趣旨を次のように定めています。人としてこの世に生を受け、自然界の恵みを一身に受けながら生かされてきたことへの感謝の証しとして植樹し、没後、自ら植えた樹木のそばで大地に還る——。
+    </p>
+    <p>
+      そのため、植樹葬墓地の使用には、会員ご本人による生前の明確な意思表示が必要です。また、墓地の使用は会員一代限りとなります。
+    </p>
+
+    <h2>生前に、自分の木を植える</h2>
+    <p>
+      ご契約のときに、墓標としての花木を選び、その苗木を植えます。植樹の際は平成院がお手伝いします。
+    </p>
+    <p>{site.planting.attendance}</p>
+    <ul>
+      <li>植樹できる期間：{site.planting.period}</li>
+      <li>{site.planting.cost}</li>
+    </ul>
+  </div>
+
+  <div class="wrap section--tight">
+    <Figure name="monument-hoshi" sizes="(min-width: 900px) 70vw, 92vw" caption="境内の石碑「星と花と木のもとで」" />
+  </div>
+
+  <div class="wrap-text prose section">
+    <h2>選べる花木</h2>
+    <p>
+      樹木選択型墓地では、リストに記載された樹木の中からお好きな花木を選んで植樹できます。旧公式サイトでは、墓標として次の花木が案内されていました。
+    </p>
+    <ul class="chips" style="margin-top:var(--s4)">
+      {trees.memorialTrees.map((t) => <li>{t.name}{t.note ? `（${t.note}）` : ''}</li>)}
+    </ul>
+    <p class="source-note" style="margin-top:var(--s5)">
+      上記は旧公式サイトに掲載されていた花木です。現在お選びいただける樹種は、霊園事務局へお問い合わせください。
+    </p>
+
+    <h3>樹木限定型墓地の場合</h3>
+    <p>樹木限定型墓地では、植樹できる樹種が次の3種に限られます。</p>
+    <ul class="chips" style="margin-top:var(--s4)">
+      {trees.limitedTypeSpecies.map((s) => <li>{s}</li>)}
+    </ul>
+
+    <h2>その木のもとへ、土へ還る</h2>
+    <p>会員が亡くなられた後、ご自身が植えた樹木のもとへ埋蔵することができます。</p>
+    <p>
+      焼骨は、管理者が用意する「数年経てば土に溶ける埋蔵用容器」へ移し替え、管理者立会いのもとで土中へ埋蔵します。焼骨以外の副葬品等は埋蔵できません。
+    </p>
+
+    <h2>宗教・宗派を問わず</h2>
+    <p>
+      霊園規約 第3条により、宗教・宗派を問わずご入会いただけます。規約 第18条では、植樹葬墓地において、自ら信ずる宗教・宗派等に基づく儀礼を自由に行えると定めています。ただし、合同追悼式については管理者（平成院）が執行します。
+    </p>
+  </div>
+
+  <div class="wrap section--tight">
+    <Figure name="monument-saigyo" sizes="(min-width: 900px) 70vw, 92vw" caption="境内の西行法師の歌碑" />
+  </div>
+
+  <div class="wrap-text prose section">
+    <h2>西行法師の歌碑</h2>
+    <p class="serif" style="font-size:1.25rem;line-height:2.1">
+      {site.saigyo.poem}
+    </p>
+    <p class="note">— {site.saigyo.author}</p>
+    <p>{site.saigyo.note}</p>
+
+    <h2>墓参について</h2>
+    <p>
+      お参りいただける期間は、原則として{site.visit.period}の{site.visit.hours}です。{site.visit.note}
+    </p>
+
+    <ul class="linkcards" style="margin-top:var(--s8)">
+      <li><a href="/plans/">費用と区画を見る</a></li>
+      <li><a href="/faq/">よくあるご質問</a></li>
+      <li><a href="/access/">アクセス・ご見学</a></li>
+      <li><a href="/rules/">霊園規約</a></li>
+    </ul>
+  </div>
+</BaseLayout>
