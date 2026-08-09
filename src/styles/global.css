@@ -928,6 +928,31 @@ a[href^="tel:"]:not(.btn):not(.tel-big):not(.header-tel):not(.is-primary) {
 
 /* --------------------------------------------------------- 規約の条文 */
 /* 原文を読みやすく置くための、見た目だけの調整。文言は一切変えない。 */
+/* 章の見出し（第一章／第二章／第三章／附則） */
+.chapter-head {
+  margin-top: var(--s9);
+  padding-bottom: var(--s3);
+  border-bottom: 2px solid var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+/* 規約全文の前に置く注記 */
+.preface {
+  margin-top: var(--s5);
+  padding: var(--s5);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font-size: var(--fs-small);
+  line-height: 1.85;
+}
+
+.preface p + p {
+  margin-top: var(--s3);
+}
+
 .article {
   margin-top: var(--s7);
   padding-top: var(--s5);

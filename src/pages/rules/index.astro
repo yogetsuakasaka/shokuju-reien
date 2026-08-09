@@ -82,19 +82,29 @@ const jsonLd = [
       {
         fullText.available ? (
           <>
-            <p class="source-note">
-              以下は霊園規約の全文です。原文のまま掲載しています。
-            </p>
-            {fullText.articles.map((a) => (
-              <article class="article" id={`art-${a.no}`}>
-                <h3 class="article__no">
-                  {a.no}
-                  {a.title ? `（${a.title}）` : ''}
-                </h3>
-                {a.paragraphs.map((para) => (
-                  <p class="article__body">{para}</p>
+            <p class="source-note">{fullText.sourceNote}</p>
+            {fullText.preface?.length > 0 && (
+              <div class="preface">
+                {fullText.preface.map((t) => (
+                  <p>{t}</p>
                 ))}
-              </article>
+              </div>
+            )}
+            {fullText.articles.map((a, i) => (
+              <>
+                {a.chapter !== fullText.articles[i - 1]?.chapter && (
+                  <h3 class="chapter-head">{a.chapter}</h3>
+                )}
+                <article class="article" id={`art-${i + 1}`}>
+                  {/* 附則は章見出しと同じ文字列になるため、条の見出しは出さない */}
+                  {a.no !== a.chapter && (
+                    <h4 class="article__no">{a.title ? `${a.no}（${a.title}）` : a.no}</h4>
+                  )}
+                  {a.paragraphs.map((para) => (
+                    <p class="article__body">{para}</p>
+                  ))}
+                </article>
+              </>
             ))}
           </>
         ) : (
