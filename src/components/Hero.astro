@@ -9,8 +9,10 @@ import { getImage } from 'astro:assets';
 import imagesData from '../data/images.json';
 import site from '../data/site.json';
 
+// src/images/source/ は「元画像の保管庫」。ここを glob に含めると、
+// 未使用の元画像まで公開ビルドに出力されてしまうため除外する。
 const files = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/images/**/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG}',
+  ['/src/images/**/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG}', '!/src/images/source/**'],
   { eager: true }
 );
 

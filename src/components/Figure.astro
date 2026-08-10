@@ -20,8 +20,10 @@ if (!entry) {
   throw new Error(`[Figure] src/data/images.json に "${name}" の定義がありません。`);
 }
 
+// src/images/source/ は「元画像の保管庫」。ここを glob に含めると、
+// 未使用の元画像まで公開ビルドに出力されてしまうため除外する。
 const files = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/images/**/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG}',
+  ['/src/images/**/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG}', '!/src/images/source/**'],
   { eager: true }
 );
 

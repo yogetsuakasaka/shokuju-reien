@@ -1,0 +1,195 @@
+{
+  "_note": "派生画像の設計図。npm run images でこの通りに切り出されます。",
+  "_howto": [
+    "1行が1枚の出力です。source に src/images/source/ 内のファイル名を書くと生成されます。",
+    "source が null のあいだは、そのスロットはスキップされ、プレースホルダーのままになります。",
+    "同じ元画像から複数の比率を切り出せます（例：全景 → hero-pc と grounds-aerial）。"
+  ],
+  "_fields": {
+    "key": "src/data/images.json のキー。--apply のときの紐付け先。",
+    "out": "src/images/ からの出力パス。",
+    "source": "src/images/source/ の中のファイル名。null ならスキップ。",
+    "aspect": "9:16 / 2:3 / 3:4 / 4:5 / 1:1 / 3:2 / 16:9 のいずれか。",
+    "fx": "残したい場所の横位置。0=左端 0.5=中央 1=右端。既定 0.5。",
+    "fy": "残したい場所の縦位置。0=上端 0.5=中央 1=下端。既定 0.5。",
+    "zoom": "1 より大きいと寄る。2 なら面積が半分の範囲を切り出す。既定 1。",
+    "width": "書き出す幅（px）。元画像が足りないときは引き伸ばさず、そのままの幅で出力します。",
+    "quality": "JPEG 品質。既定 86。",
+    "adjust": "軽微な補正。{ contrast, brightness, saturation }。いずれも 0.92〜1.18 程度に制限されます。",
+    "sharpen": "false にすると縮小後のシャープを止めます。既定 true。"
+  },
+  "_tips": [
+    "「地平線をもう少し上に」→ fy を小さくする（0.50 → 0.40）",
+    "「もっと寄って」→ zoom を上げる（1 → 1.5）",
+    "「右の建物を切りたい」→ fx を小さくする（0.50 → 0.40）",
+    "強い HDR・過度な彩度・色味の変更はしないこと。adjust は 1.05 前後までが目安。"
+  ],
+  "outputs": [
+    {
+      "key": "hero",
+      "out": "hero/hero-sp.jpg",
+      "source": null,
+      "_source_candidate": "02-aerial-spring.jpg（候補②の全景）",
+      "aspect": "9:16",
+      "fx": 0.5,
+      "fy": 0.42,
+      "width": 1400,
+      "quality": 84,
+      "_memo": "スマホ Hero。画面下40%はグラデーションと文字が重なるので、下側は静かな面に。山並みを上1/3に置く。"
+    },
+    {
+      "key": "hero-wide",
+      "out": "hero/hero-pc.jpg",
+      "source": null,
+      "_source_candidate": "02-aerial-spring.jpg（候補②の全景）",
+      "aspect": "3:2",
+      "fx": 0.5,
+      "fy": 0.48,
+      "width": 2400,
+      "quality": 84,
+      "_memo": "PC Hero。16:9 より 3:2 のほうが切り落としが少ない。"
+    },
+    {
+      "key": "grounds-aerial",
+      "out": "grounds/grounds-aerial.jpg",
+      "source": null,
+      "_source_candidate": "02-aerial-spring.jpg（候補②の全景）",
+      "aspect": "16:9",
+      "fx": 0.5,
+      "fy": 0.45,
+      "width": 2000,
+      "_memo": "「14,000坪の境内」セクション。山並みと森の広がりを見せる。"
+    },
+    {
+      "key": "plans-section",
+      "out": "grounds/plans-section.jpg",
+      "source": null,
+      "_source_candidate": "03-plots-rows.jpg（候補③の区画の列）",
+      "aspect": "16:9",
+      "fx": 0.5,
+      "fy": 0.5,
+      "width": 2000,
+      "_memo": "費用ページ。区画の並びが分かる範囲を残す。"
+    },
+    {
+      "key": "story-under",
+      "out": "story/story-under.jpg",
+      "source": null,
+      "_source_candidate": "04-circle-sakura.jpg（候補④の円形区画）",
+      "aspect": "1:1",
+      "fx": 0.47,
+      "fy": 0.45,
+      "zoom": 1.6,
+      "width": 1600,
+      "_memo": "物語③。円形区画を中心に。右上の民家が入らないよう fx を左寄りに。"
+    },
+    {
+      "key": "monument-hoshi",
+      "out": "monuments/monument-hoshi.jpg",
+      "source": null,
+      "_source_candidate": "01-monument-hoshi.jpg（候補①の石碑）",
+      "aspect": "3:2",
+      "fx": 0.5,
+      "fy": 0.5,
+      "width": 2000,
+      "_memo": "「星と花と木のもとで」石碑。刻字が読める大きさを保つ。"
+    },
+    {
+      "key": "story-plant",
+      "out": "story/story-plant.jpg",
+      "source": null,
+      "aspect": "1:1",
+      "width": 1600,
+      "_memo": "物語①「一本の木を、植える。」植樹の様子、または植えたばかりの苗木。"
+    },
+    {
+      "key": "story-seasons",
+      "out": "story/story-seasons.jpg",
+      "source": null,
+      "aspect": "1:1",
+      "width": 1600,
+      "_memo": "物語②「その木と、季節を重ねる。」新緑、または花をつけた木。"
+    },
+    {
+      "key": "story-soil",
+      "out": "story/story-soil.jpg",
+      "source": null,
+      "aspect": "1:1",
+      "width": 1600,
+      "_memo": "物語④「土から生まれ、土へ還る。」地面・落ち葉・木もれ日の寄り。"
+    },
+    {
+      "key": "season-spring",
+      "out": "seasons/season-spring.jpg",
+      "source": null,
+      "aspect": "1:1",
+      "width": 1600,
+      "_memo": "四季（春）。表示は最小166pxなので、引きではなく寄りの桜を。"
+    },
+    {
+      "key": "season-green",
+      "out": "seasons/season-green.jpg",
+      "source": null,
+      "aspect": "1:1",
+      "width": 1600,
+      "_memo": "四季（初夏）。新緑の寄り。"
+    },
+    {
+      "key": "season-flower",
+      "out": "seasons/season-flower.jpg",
+      "source": null,
+      "aspect": "1:1",
+      "width": 1600,
+      "_memo": "四季（花）。シャクナゲまたはヤマアジサイの花のかたまり。"
+    },
+    {
+      "key": "season-autumn",
+      "out": "seasons/season-autumn.jpg",
+      "source": null,
+      "aspect": "1:1",
+      "width": 1600,
+      "_memo": "四季（秋）。紅葉の寄り。"
+    },
+    {
+      "key": "monument-saigyo",
+      "out": "monuments/monument-saigyo.jpg",
+      "source": null,
+      "aspect": "3:2",
+      "width": 2000,
+      "_memo": "西行法師の歌碑。刻字が読める寄り。"
+    },
+    {
+      "key": "monument-wa",
+      "out": "monuments/monument-wa.jpg",
+      "source": null,
+      "aspect": "3:2",
+      "width": 2000,
+      "_memo": "「和」の石碑。刻字が読める寄り。"
+    },
+    {
+      "key": "memorial",
+      "out": "grounds/memorial.jpg",
+      "source": null,
+      "aspect": "16:9",
+      "width": 2000,
+      "_memo": "合同追悼式。参列者の顔が判別できない構図に限る（引き・後ろ姿・手元）。掲載同意の確認が済むまで入れないこと。"
+    },
+    {
+      "key": "about-grounds",
+      "out": "grounds/about-grounds.jpg",
+      "source": null,
+      "aspect": "16:9",
+      "width": 2000,
+      "_memo": "平成院についてのページ。境内の風景。"
+    },
+    {
+      "key": "access-entrance",
+      "out": "grounds/access-entrance.jpg",
+      "source": null,
+      "aspect": "16:9",
+      "width": 2000,
+      "quality": 82,
+      "_memo": "アクセスページ。目印になる入口。現地は電波が弱い前提なので、やや強めに圧縮。"
+    }
+  ]
+}

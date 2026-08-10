@@ -8,6 +8,9 @@
     "dev": "astro dev",
     "build": "astro build && npm run check:todo",
     "preview": "astro preview",
+    "images": "node scripts/derive-images.mjs",
+    "images:dry": "node scripts/derive-images.mjs --dry",
+    "images:apply": "node scripts/derive-images.mjs --apply",
     "check:todo": "node scripts/check-todo.mjs"
   },
   "dependencies": {

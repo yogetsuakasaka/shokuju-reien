@@ -129,29 +129,74 @@ src/data/plans.json
 
 ## 5. 写真を追加する
 
-写真はまだ1枚も入っていません。手順は3ステップです。
+写真はまだ1枚も入っていません。**元画像を1か所に置けば、切り出し・リサイズ・配置は自動**です。
 
-1. 写真を `src/images/` に置く（例：`src/images/hero.jpg`）
-2. `src/data/images.json` の該当キーの `"file"` にファイル名を書く
+### 手順
+
+1. **元画像を `src/images/source/` に置く**
+   - 長辺4000px前後の JPEG
+   - **EXIF（位置情報）を外してから**置く（このリポジトリは公開されています）
+   - ファイル名は半角英数字・小文字・ハイフン（例：`02-aerial-spring.jpg`）
+   - 詳細は `src/images/source/README.md`
+
+2. **`scripts/image-recipes.json` に切り出し方を書く**
 
    ```json
-   "hero": { "file": "hero.jpg", "alt": "…", "want": "…", "aspect": "3 / 4" }
+   { "key": "hero", "out": "hero/hero-sp.jpg", "source": "02-aerial-spring.jpg",
+     "aspect": "9:16", "fx": 0.5, "fy": 0.42, "width": 1400 }
    ```
 
-3. `npm run build`
+   - `fx` / `fy` … 残したい場所（0〜1。中央が 0.5, 0.5）
+   - `zoom` … 1より大きいと寄る
+   - `adjust` … 軽微な補正 `{ contrast, brightness, saturation }`。**0.92〜1.18 に制限**してあり、
+     強いHDR・過度な彩度・色味の変更はできません
 
-これだけで、WebP への変換・複数サイズの生成・遅延読み込みが自動で行われます。
+3. **生成する**
 
-- `file` が `null` のあいだは、**どんな写真が入る場所かを説明したプレースホルダー**が表示されます。
-- `alt` は必ず書きます。「桜」ではなく「満開の西行桜」のように、**情報として**書いてください。
-- `want` は撮影・選定のための覚え書きです。プレースホルダーに表示されます。
+   ```bash
+   npm run images:dry     # 何が作られるか確認（書き込みなし）
+   npm run images         # 生成する
+   npm run images:apply   # 生成 + images.json の file を自動で紐付け
+   npm run build
+   ```
+
+WebP への変換・複数サイズの生成・遅延読み込みは、そのあとビルドが自動で行います。
+
+### 大原則
+
+- **元画像は読むだけ。上書きも削除もしません。** 派生画像は必ず別ファイルとして作られます
+- **出力から EXIF（GPS・機材情報）は自動的に除去されます**
+- `src/images/source/` は公開ビルドから除外してあります（`Figure.astro` / `Hero.astro` の
+  glob で `!/src/images/source/**` を指定）。**この除外を外さないこと。**
+  外すと、未使用の元画像がフル解像度で公開されます
+
+### 微調整のしかた
+
+写真を見て直したくなったら、レシピの数値を1つ変えて `npm run images` を実行するだけです。
+
+| やりたいこと | 変更 |
+|---|---|
+| 地平線をもう少し上に | `fy` を小さく（0.50 → 0.40） |
+| もっと寄りたい | `zoom` を上げる（1 → 1.5） |
+| 右端の建物を切りたい | `fx` を小さく（0.50 → 0.40） |
+| 少し締めたい | `adjust: { "contrast": 1.05 }` |
+
+### 手で入れることもできます
+
+スクリプトを使わず、切り出し済みの写真を `src/images/` に直接置いて
+`images.json` の `file` に書いても動きます。
+
+- `file` が `null` のあいだは、**どんな写真が入る場所かを説明したプレースホルダー**が表示されます
+- `alt` は必ず書きます。「桜」ではなく「満開の西行桜」のように、**情報として**書いてください
+- `want` は撮影・選定のための覚え書きです。プレースホルダーに表示されます
 
 ### Hero の写真について
 
-- `hero` … スマートフォン用。**縦構図（3:4）を推奨**
-- `hero-wide` … パソコン用。横位置。設定しなければパソコンでも `hero` が使われます
-
-横長のドローン写真を縦画面に無理やり中央クロップしないための仕組みです。
+- `hero` … スマートフォン用。**9:16 の縦構図を推奨**
+  （全画面 cover 表示のため、3:4 だと左右が約38%切られます）
+- `hero-wide` … パソコン用。**3:2 を推奨**（16:9 だと左右が約20%切られます）。
+  設定しなければパソコンでも `hero` が使われます
+- どちらも**画面下40%に文字とグラデーションが重なります**。下側は空・森など静かな面に
 
 ### 写真の禁止事項 🚫
 
@@ -242,11 +287,16 @@ src/
 │   ├── trees.json     花木
 │   ├── rules.json     霊園規約（重要事項＋全文）
 │   └── images.json    写真の一元管理
-├── images/        ← 写真を置く場所（現在は空）
+├── images/            サイトで使う写真（npm run images が生成）
+│   └── source/        元画像の保管庫（公開ビルドには含まれない）
 ├── styles/global.css  デザイントークンと全スタイル
 ├── components/    Header / Footer / Hero / Figure / FaqList / PlanCard / CtaBar / Breadcrumb
 ├── layouts/BaseLayout.astro   <head>・SEO・JSON-LD・スクリプト
 └── pages/         / concept / plans / faq / access / about / rules / 404
+scripts/
+├── derive-images.mjs  元画像から派生画像を生成
+├── image-recipes.json 切り出し方の設計図
+└── check-todo.mjs     未確認プレースホルダの検査
 public/
 ├── robots.txt
 ├── _redirects     旧URL（pgNN.html）からの転送 ※対応が判明したら追記
