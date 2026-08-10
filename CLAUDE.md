@@ -374,6 +374,15 @@ npm run preview   # 本番と同じ状態で確認
 
 ---
 
+## 10-2. 技術方針（確定）
+
+**Astro + GitHub + Cloudflare Pages で完成・公開します。**
+
+- Wix Studio への移行は**行いません**（2026年8月に方針確定）
+- ホスティングは Cloudflare Pages。`public/_redirects` と `public/_headers` が有効になります
+- 本番ドメインは `shokuju-reien.jp`（接続は制作完了後）
+- 制作中は `*.pages.dev` のプレビューURLで確認します
+
 ## 11. やらないこと
 
 - AI生成画像
@@ -383,6 +392,7 @@ npm run preview   # 本番と同じ状態で確認
 - チャットボット
 - React・Next.js の導入（このサイトに動的な要素はありません）
 - 複雑なCMSの導入
+- Wix 等の Website Builder への移行（Astro で完成させる方針）
 - 旧サイトの `pgNN.html` というURL構造の踏襲
 - 料金や制度の推測
 - 「継承者不要」という単純な断定

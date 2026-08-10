@@ -45,8 +45,8 @@
 
 ### A-4. 写真
 
-> **受け入れ準備は完了しています。**
-> 元画像を `src/images/source/` に置けば、`npm run images` で17スロット分の
+> **投入の仕組みは完成しています。**
+> `src/images/work/` に写真をアップロードすれば、`npm run images:apply` で
 > 切り出し・リサイズ・配置・`images.json` への紐付けまで自動で行われます。
 > 切り出し方は `scripts/image-recipes.json`、手順は CLAUDE.md「5. 写真を追加する」。
 
@@ -63,8 +63,6 @@ story-under / monument-hoshi / monument-saigyo / about-grounds
       08-tsuito-chanting は参列者の顔が判別できるため使用しない
 - [ ] 写真は**長辺3000px前後・EXIF（位置情報）を外した JPEG** で
       `src/images/work/` へ（Hero候補のみ4000px）
-- [ ] ★ 合同追悼式の写真：**参列者の掲載同意**が取れているか
-      （同意が確認できない場合は、顔が判別できない構図のみ使用）
 - [ ] ドローン撮影の飛行許可記録の確認
 - [ ] OGP画像（SNSでシェアされたときに表示される画像）— 現在未設定
 
