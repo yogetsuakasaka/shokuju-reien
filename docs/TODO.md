@@ -50,10 +50,19 @@
 > 切り出し・リサイズ・配置・`images.json` への紐付けまで自動で行われます。
 > 切り出し方は `scripts/image-recipes.json`、手順は CLAUDE.md「5. 写真を追加する」。
 
-- [ ] ★ **写真が1枚も入っていません。** 現在は全17スロットがプレースホルダー表示です
-      （元画像を `src/images/source/` に置き、`scripts/image-recipes.json` の `source` を埋める）
-- [ ] ★ 元画像は**長辺4000px前後・EXIF（位置情報）を外した JPEG** でお願いします
-      （このリポジトリは公開されているため）
+**投入済み（8スロット）**：hero / hero-wide / grounds-aerial / plans-section /
+story-under / monument-hoshi / monument-saigyo / about-grounds
+
+- [ ] ★ **未投入が9スロット**：story-plant／story-seasons／story-soil／
+      season-spring／season-green／season-flower／season-autumn／monument-wa／access-entrance
+- [ ] ★ **四季の4枚は「寄り」の写真**が必要（表示166pxのため、引きの風景では判別不可）
+- [ ] ★ **「和」の石碑の単独写真**（人が写っていないもの）。
+      07-tsuito-people には写り込んでいるが、参列者越しで単独掲載には不十分
+- [ ] ★ **合同追悼式（memorial）は保留中**。
+      07-tsuito-people は後ろ姿中心で構図は適合するが、**参列者の掲載同意が未確認**。
+      08-tsuito-chanting は参列者の顔が判別できるため使用しない
+- [ ] 写真は**長辺3000px前後・EXIF（位置情報）を外した JPEG** で
+      `src/images/work/` へ（Hero候補のみ4000px）
 - [ ] ★ 合同追悼式の写真：**参列者の掲載同意**が取れているか
       （同意が確認できない場合は、顔が判別できない構図のみ使用）
 - [ ] ドローン撮影の飛行許可記録の確認

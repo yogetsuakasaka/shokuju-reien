@@ -165,10 +165,13 @@
     {
       "key": "monument-saigyo",
       "out": "monuments/monument-saigyo.jpg",
-      "source": null,
+      "source": "06-saigyo-monument.JPG",
       "aspect": "3:2",
       "width": 2000,
-      "_memo": "西行法師の歌碑。刻字が読める寄り。"
+      "_memo": "西行法師の歌碑。全画のままだと石碑が横幅の36%しかなく、スマホ表示347pxでは歌が読めないため、少し寄せる。手前の桜は残す。",
+      "fx": 0.55,
+      "fy": 0.52,
+      "zoom": 1.3
     },
     {
       "key": "monument-wa",
