@@ -4,13 +4,13 @@
   "_rule": "AI生成画像・外部のストック写真を入れないこと。平成院で実際に撮影した写真だけを使う。",
   "images": {
     "hero": {
-      "file": null,
+      "file": "hero/hero-sp.jpg",
       "alt": "山あいに広がる青松山 平成院の境内と霊園",
       "want": "TOP最上部（スマートフォン）。ドローンによる境内・霊園の全景。全画面のcover表示のため、縦長ほど切り落としが少ない。9:16の縦構図を推奨。画面下40%は文字とグラデーションが重なるので、下側は静かな面に。",
       "aspect": "9 / 16"
     },
     "hero-wide": {
-      "file": null,
+      "file": "hero/hero-pc.jpg",
       "alt": "上空から見た青松山 平成院の境内と霊園の全景",
       "want": "TOP最上部（パソコン）。横位置のドローン全景。3:2を推奨（16:9だと左右が2割ほど切られます）。未設定のままなら、パソコンでも hero の写真が使われます。",
       "aspect": "3 / 2"
@@ -28,7 +28,7 @@
       "aspect": "1 / 1"
     },
     "story-under": {
-      "file": null,
+      "file": "story/story-under.jpg",
       "alt": "西行桜を中心とした円形の区画",
       "want": "「そしていつか、その木のもとへ。」の場面。西行桜を中心とした円形区画。",
       "aspect": "1 / 1"
@@ -40,13 +40,13 @@
       "aspect": "1 / 1"
     },
     "grounds-aerial": {
-      "file": null,
+      "file": "grounds/grounds-aerial.jpg",
       "alt": "上空から見た14,000坪の境内と周囲の山々",
       "want": "「14,000坪の境内」セクション。ドローンによる横位置の全景。",
       "aspect": "16 / 9"
     },
     "monument-hoshi": {
-      "file": null,
+      "file": "monuments/monument-hoshi.jpg",
       "alt": "「星と花と木のもとで」と刻まれた石碑",
       "want": "コンセプトページ。「星と花と木のもとで」の石碑。",
       "aspect": "3 / 2"
@@ -88,7 +88,7 @@
       "aspect": "1 / 1"
     },
     "plans-section": {
-      "file": null,
+      "file": "grounds/plans-section.jpg",
       "alt": "植樹葬墓地の区画",
       "want": "費用ページ。区画の様子がわかる写真。",
       "aspect": "16 / 9"
@@ -100,7 +100,7 @@
       "aspect": "16 / 9"
     },
     "about-grounds": {
-      "file": null,
+      "file": "grounds/about-grounds.jpg",
       "alt": "青松山 平成院の境内",
       "want": "平成院についてのページ。境内の風景。",
       "aspect": "16 / 9"

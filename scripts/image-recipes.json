@@ -29,66 +29,77 @@
     {
       "key": "hero",
       "out": "hero/hero-sp.jpg",
-      "source": null,
-      "_source_candidate": "02-aerial-spring.jpg（候補②の全景）",
+      "source": "02-drone-wide.JPG",
       "aspect": "9:16",
-      "fx": 0.5,
-      "fy": 0.42,
+      "fx": 0.48,
+      "fy": 0.5,
       "width": 1400,
       "quality": 84,
-      "_memo": "スマホ Hero。画面下40%はグラデーションと文字が重なるので、下側は静かな面に。山並みを上1/3に置く。"
+      "_memo": "スマホ Hero。画面下40%はグラデーションと文字が重なるので、下側は静かな面に。山並みを上1/3に置く。",
+      "adjust": {
+        "contrast": 1.05
+      }
     },
     {
       "key": "hero-wide",
       "out": "hero/hero-pc.jpg",
-      "source": null,
-      "_source_candidate": "02-aerial-spring.jpg（候補②の全景）",
+      "source": "02-drone-wide.JPG",
       "aspect": "3:2",
       "fx": 0.5,
-      "fy": 0.48,
+      "fy": 0.46,
       "width": 2400,
       "quality": 84,
-      "_memo": "PC Hero。16:9 より 3:2 のほうが切り落としが少ない。"
+      "_memo": "PC Hero。16:9 より 3:2 のほうが切り落としが少ない。",
+      "adjust": {
+        "contrast": 1.05
+      }
     },
     {
       "key": "grounds-aerial",
       "out": "grounds/grounds-aerial.jpg",
-      "source": null,
-      "_source_candidate": "02-aerial-spring.jpg（候補②の全景）",
+      "source": "02-drone-wide.JPG",
       "aspect": "16:9",
       "fx": 0.5,
-      "fy": 0.45,
+      "fy": 0.44,
       "width": 2000,
-      "_memo": "「14,000坪の境内」セクション。山並みと森の広がりを見せる。"
+      "_memo": "「14,000坪の境内」セクション。山並みと森の広がりを見せる。",
+      "adjust": {
+        "contrast": 1.05
+      }
     },
     {
       "key": "plans-section",
       "out": "grounds/plans-section.jpg",
-      "source": null,
-      "_source_candidate": "03-plots-rows.jpg（候補③の区画の列）",
+      "source": "04-drone-plots.JPG",
       "aspect": "16:9",
-      "fx": 0.5,
-      "fy": 0.5,
+      "fx": 0.4,
+      "fy": 0.46,
       "width": 2000,
-      "_memo": "費用ページ。区画の並びが分かる範囲を残す。"
+      "_memo": "費用ページ。区画の並びが分かる範囲を残す。",
+      "zoom": 1.3,
+      "adjust": {
+        "contrast": 1.06,
+        "brightness": 1.02
+      }
     },
     {
       "key": "story-under",
       "out": "story/story-under.jpg",
-      "source": null,
-      "_source_candidate": "04-circle-sakura.jpg（候補④の円形区画）",
+      "source": "05-drone-monument-circle.JPG",
       "aspect": "1:1",
-      "fx": 0.47,
+      "fx": 0.41,
       "fy": 0.45,
-      "zoom": 1.6,
+      "zoom": 2.0,
       "width": 1600,
-      "_memo": "物語③。円形区画を中心に。右上の民家が入らないよう fx を左寄りに。"
+      "_memo": "物語③。円形区画を中心に。右上の民家が入らないよう fx を左寄りに。",
+      "adjust": {
+        "contrast": 1.04
+      }
     },
     {
       "key": "monument-hoshi",
       "out": "monuments/monument-hoshi.jpg",
-      "source": null,
-      "_source_candidate": "01-monument-hoshi.jpg（候補①の石碑）",
+      "source": "01-monument-hoshi.JPG",
       "aspect": "3:2",
       "fx": 0.5,
       "fy": 0.5,
@@ -178,10 +189,15 @@
     {
       "key": "about-grounds",
       "out": "grounds/about-grounds.jpg",
-      "source": null,
+      "source": "05-drone-monument-circle.JPG",
       "aspect": "16:9",
       "width": 2000,
-      "_memo": "平成院についてのページ。境内の風景。"
+      "_memo": "平成院についてのページ。境内の風景。",
+      "fx": 0.5,
+      "fy": 0.5,
+      "adjust": {
+        "contrast": 1.04
+      }
     },
     {
       "key": "access-entrance",

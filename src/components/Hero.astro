@@ -35,11 +35,14 @@ const heroEntry = (imagesData.images as Record<string, any>)['hero'];
 const portrait = resolve('hero');
 const wide = resolve('hero-wide');
 
+// Hero は全画面の写真なので、放っておくと重くなる。
+// 森の写真は情報量が多く圧縮が効きにくいため、幅の上限と品質をここで抑える。
+// （実測：1080px幅の WebP が quality 80 で 408KB、72 で 326KB）
 const portraitImg = portrait
-  ? await getImage({ src: portrait, widths: [480, 720, 1080, 1440], format: 'webp' })
+  ? await getImage({ src: portrait, widths: [480, 720, 900, 1080], format: 'webp', quality: 72 })
   : null;
 const wideImg = wide
-  ? await getImage({ src: wide, widths: [1024, 1440, 1920], format: 'webp' })
+  ? await getImage({ src: wide, widths: [1024, 1440, 1800], format: 'webp', quality: 72 })
   : null;
 ---
 
