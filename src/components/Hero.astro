@@ -9,10 +9,15 @@ import { getImage } from 'astro:assets';
 import imagesData from '../data/images.json';
 import site from '../data/site.json';
 
-// src/images/source/ は「元画像の保管庫」。ここを glob に含めると、
-// 未使用の元画像まで公開ビルドに出力されてしまうため除外する。
+// work/ は切り出し前の作業用画像、source/ は元画像の保管庫。
+// どちらも glob に含めると、未使用の大きな画像まで公開ビルドに出力されてしまうため除外する。
+// この除外を外さないこと（外すと 3000px の作業用マスターがそのまま公開されます）。
 const files = import.meta.glob<{ default: ImageMetadata }>(
-  ['/src/images/**/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG}', '!/src/images/source/**'],
+  [
+    '/src/images/**/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG}',
+    '!/src/images/work/**',
+    '!/src/images/source/**',
+  ],
   { eager: true }
 );
 

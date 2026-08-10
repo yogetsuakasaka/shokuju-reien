@@ -129,17 +129,23 @@ src/data/plans.json
 
 ## 5. 写真を追加する
 
-写真はまだ1枚も入っていません。**元画像を1か所に置けば、切り出し・リサイズ・配置は自動**です。
+写真はまだ1枚も入っていません。**iPhone から直接アップロードできる運用**にしてあります。
 
 ### 手順
 
-1. **元画像を `src/images/source/` に置く**
-   - 長辺4000px前後の JPEG
-   - **EXIF（位置情報）を外してから**置く（このリポジトリは公開されています）
-   - ファイル名は半角英数字・小文字・ハイフン（例：`02-aerial-spring.jpg`）
-   - 詳細は `src/images/source/README.md`
+1. **iPhone で位置情報を外す（必ず）**
+   - 写真アプリで共有 →「オプション」→**「位置情報」をオフ**→「"ファイル"に保存」
+   - **このリポジトリは公開されています。** EXIF に GPS 座標が含まれるため、外さずに
+     コミットすると撮影場所が誰にでも分かる状態になります
+   - 外し忘れても `npm run build` が検出して止めます（`scripts/check-exif.mjs`）。
+     ただしコミット後だと履歴に残るので、**アップロード前に外すのが確実**です
 
-2. **`scripts/image-recipes.json` に切り出し方を書く**
+2. **`src/images/work/` にアップロードする**
+   - 長辺3000px程度（Hero候補のみ4000px）
+   - ファイル名は半角英数字・小文字・ハイフン（例：`02-aerial-spring.jpg`）
+   - 詳細は `src/images/work/README.md`
+
+3. **`scripts/image-recipes.json` に切り出し方を書く**
 
    ```json
    { "key": "hero", "out": "hero/hero-sp.jpg", "source": "02-aerial-spring.jpg",
@@ -148,27 +154,35 @@ src/data/plans.json
 
    - `fx` / `fy` … 残したい場所（0〜1。中央が 0.5, 0.5）
    - `zoom` … 1より大きいと寄る
-   - `adjust` … 軽微な補正 `{ contrast, brightness, saturation }`。**0.92〜1.18 に制限**してあり、
-     強いHDR・過度な彩度・色味の変更はできません
+   - `adjust` … `{ contrast, brightness }` のみ。**色味（彩度・色相）は変更しません**
 
-3. **生成する**
+4. **生成する**
 
    ```bash
    npm run images:dry     # 何が作られるか確認（書き込みなし）
-   npm run images         # 生成する
    npm run images:apply   # 生成 + images.json の file を自動で紐付け
    npm run build
    ```
 
 WebP への変換・複数サイズの生成・遅延読み込みは、そのあとビルドが自動で行います。
 
+### フォルダの役割
+
+| フォルダ | 役割 | Git | 公開ビルド |
+|---|---|---|---|
+| `src/images/work/` | **アップロード先。**切り出し前の写真 | 管理する | **出力されない** |
+| `src/images/hero/` `story/` `seasons/` `monuments/` `grounds/` | 表示用。`npm run images` が生成 | 管理する | 出力される |
+| `src/images/source/` | 元画像の保管庫（PC作業用・任意） | **管理外** | 出力されない |
+
 ### 大原則
 
-- **元画像は読むだけ。上書きも削除もしません。** 派生画像は必ず別ファイルとして作られます
+- **アップロードした写真は読むだけ。** 上書き・削除はしません。派生画像は別ファイルです
 - **出力から EXIF（GPS・機材情報）は自動的に除去されます**
-- `src/images/source/` は公開ビルドから除外してあります（`Figure.astro` / `Hero.astro` の
-  glob で `!/src/images/source/**` を指定）。**この除外を外さないこと。**
-  外すと、未使用の元画像がフル解像度で公開されます
+- **色味は変更しません。** sRGB に変換してプロファイルを埋め込むだけです
+  （iPhone の Display P3 写真からプロファイルを捨てると色がずれるため）
+- 補正は**明るさとコントラストのみ**。強い HDR や彩度の変更はできない実装です
+- `work/` と `source/` は `Figure.astro` / `Hero.astro` の glob から除外してあります。
+  **この除外を外さないこと。** 外すと大きな元画像がそのまま公開されます
 
 ### 微調整のしかた
 
@@ -183,8 +197,8 @@ WebP への変換・複数サイズの生成・遅延読み込みは、そのあ
 
 ### 手で入れることもできます
 
-スクリプトを使わず、切り出し済みの写真を `src/images/` に直接置いて
-`images.json` の `file` に書いても動きます。
+切り出し済みの写真を `src/images/` 直下のフォルダに置き、`images.json` の `file` に
+書いても動きます。その場合も **EXIF は必ず外してください**（ビルドが止まります）。
 
 - `file` が `null` のあいだは、**どんな写真が入る場所かを説明したプレースホルダー**が表示されます
 - `alt` は必ず書きます。「桜」ではなく「満開の西行桜」のように、**情報として**書いてください
@@ -288,15 +302,17 @@ src/
 │   ├── rules.json     霊園規約（重要事項＋全文）
 │   └── images.json    写真の一元管理
 ├── images/            サイトで使う写真（npm run images が生成）
-│   └── source/        元画像の保管庫（公開ビルドには含まれない）
+│   ├── work/          写真のアップロード先（公開ビルドには含まれない）
+│   └── source/        元画像の保管庫（Git管理外）
 ├── styles/global.css  デザイントークンと全スタイル
 ├── components/    Header / Footer / Hero / Figure / FaqList / PlanCard / CtaBar / Breadcrumb
 ├── layouts/BaseLayout.astro   <head>・SEO・JSON-LD・スクリプト
 └── pages/         / concept / plans / faq / access / about / rules / 404
 scripts/
-├── derive-images.mjs  元画像から派生画像を生成
+├── derive-images.mjs  作業用画像から派生画像を生成
 ├── image-recipes.json 切り出し方の設計図
-└── check-todo.mjs     未確認プレースホルダの検査
+├── check-todo.mjs     未確認プレースホルダの検査
+└── check-exif.mjs     画像に EXIF（位置情報）が残っていないかの検査
 public/
 ├── robots.txt
 ├── _redirects     旧URL（pgNN.html）からの転送 ※対応が判明したら追記
@@ -347,7 +363,7 @@ npm run build     # ビルド + 未確認プレースホルダの検査
 npm run preview   # 本番と同じ状態で確認
 ```
 
-- [ ] `npm run build` が成功する（`{{TODO` が残っていない）
+- [ ] `npm run build` が成功する（`{{TODO` が残っていない／画像に EXIF が残っていない）
 - [ ] **スマートフォン幅（375px）で確認した**
 - [ ] 電話番号がすべて `tel:` リンクになっていて、1タップで発信できる
 - [ ] 新しく書いた事実に、確認できていない推測が混ざっていない

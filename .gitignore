@@ -6,3 +6,8 @@ dist/
 .env
 .env.*
 !.env.example
+
+# 元画像の保管庫。ここに置いたものは Git に入れない。
+# 一度コミットすると履歴から消せないため。
+src/images/source/*
+!src/images/source/README.md

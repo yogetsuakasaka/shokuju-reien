@@ -1,7 +1,7 @@
 /**
  * 派生画像の生成
  * ==============
- * src/images/source/ に置いた元画像から、各スロット用の画像を切り出して書き出します。
+ * src/images/work/ に置いた作業用画像から、各スロット用の画像を切り出して書き出します。
  *
  *   npm run images          生成する
  *   npm run images:dry      何が作られるかだけ表示する（ファイルは書きません）
@@ -11,16 +11,18 @@
  * 詳しい書き方は CLAUDE.md「5. 写真を追加する」を参照してください。
  *
  * 大原則
- *   - 元画像は読むだけ。上書きも削除もしません。
+ *   - 作業用画像は読むだけ。上書きも削除もしません。
  *   - 出力は必ず別ファイルとして src/images/<フォルダ>/ に作ります。
  *   - EXIF（GPS・機材情報など）は出力から自動的に取り除かれます。
- *   - 補正は「自然に見える範囲」に制限しています（下の LIMITS を参照）。
+ *   - 色味は変えません。sRGB に変換してプロファイルを埋め込むだけです
+ *     （iPhone の Display P3 写真からプロファイルを捨てると色がずれるため）。
+ *   - 補正は明るさとコントラストのみ。いずれも自然に見える範囲に制限しています。
  */
 import sharp from 'sharp';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
-const SRC_DIR = 'src/images/source';
+const SRC_DIR = 'src/images/work';
 const OUT_DIR = 'src/images';
 const RECIPES = 'scripts/image-recipes.json';
 const IMAGES_JSON = 'src/data/images.json';
@@ -40,13 +42,15 @@ const ASPECTS = {
 };
 
 /**
- * 補正の上限。強い HDR・過度な彩度・色味の変更をしないための歯止め。
+ * 補正の上限。強い HDR・過度な補正をしないための歯止め。
  * この範囲を超える値がレシピに書かれていたら、丸めたうえで警告します。
+ *
+ * 彩度・色相はここに含めません。色味は変更しない方針です。
+ * レシピに saturation を書いても無視され、警告が出ます。
  */
 const LIMITS = {
-  brightness: [0.92, 1.12],
-  contrast: [0.92, 1.18],
-  saturation: [0.92, 1.12],
+  brightness: [0.94, 1.10],
+  contrast: [0.94, 1.12],
 };
 
 const clamp = (v, [lo, hi]) => Math.min(Math.max(v, lo), hi);
@@ -77,7 +81,7 @@ const recipes = JSON.parse(readFileSync(RECIPES, 'utf8'));
 const outputs = recipes.outputs ?? [];
 
 if (!existsSync(SRC_DIR)) {
-  console.error(`[images] ${SRC_DIR} がありません。元画像を置くフォルダを作ってください。`);
+  console.error(`[images] ${SRC_DIR} がありません。作業用画像を置くフォルダを作ってください。`);
   process.exit(1);
 }
 
@@ -90,7 +94,7 @@ for (const r of outputs) {
   const label = r.out ?? '(out 未設定)';
 
   if (!r.source) {
-    console.log(`  · ${label.padEnd(34)} 元画像が未指定のためスキップ`);
+    console.log(`  · ${label.padEnd(34)} 作業用画像が未指定のためスキップ`);
     skipped++;
     continue;
   }
@@ -116,7 +120,7 @@ for (const r of outputs) {
 
   if (crop.width < r.width) {
     console.warn(
-      `  ⚠ ${label.padEnd(34)} 切り出し後 ${crop.width}px < 目標 ${r.width}px（元画像の解像度が不足。引き伸ばしはしません）`
+      `  ⚠ ${label.padEnd(34)} 切り出し後 ${crop.width}px < 目標 ${r.width}px（作業用画像の解像度が不足。引き伸ばしはしません）`
     );
     warned++;
   }
@@ -132,23 +136,26 @@ for (const r of outputs) {
 
   let img = pipeline.extract(crop).resize({ width: outW, withoutEnlargement: true });
 
-  // ---- 軽微な補正（既定はコントラストのみ・いずれも控えめ） ----
+  // ---- 軽微な補正（明るさ・コントラストのみ。色味は変えない） ----
   const adj = r.adjust ?? {};
+  if (adj.saturation !== undefined || adj.hue !== undefined) {
+    console.warn(`  ⚠ ${label}: 彩度・色相の調整は行いません（色味を変更しない方針）。無視します。`);
+    warned++;
+  }
   const contrast = clamp(adj.contrast ?? 1, LIMITS.contrast);
   const brightness = clamp(adj.brightness ?? 1, LIMITS.brightness);
-  const saturation = clamp(adj.saturation ?? 1, LIMITS.saturation);
-  for (const [k, v] of Object.entries({ contrast: adj.contrast, brightness: adj.brightness, saturation: adj.saturation })) {
+  for (const [k, v] of Object.entries({ contrast: adj.contrast, brightness: adj.brightness })) {
     if (v !== undefined && v !== clamp(v, LIMITS[k])) {
       console.warn(`  ⚠ ${label}: ${k}=${v} は上限を超えるため ${clamp(v, LIMITS[k])} に丸めました。`);
       warned++;
     }
   }
   if (contrast !== 1) {
-    // 中間調を軸にコントラストを調整（色相は変えない）
+    // 中間調を軸にコントラストを調整（RGB を等しく動かすので色相は変わらない）
     img = img.linear(contrast, 128 * (1 - contrast));
   }
-  if (brightness !== 1 || saturation !== 1) {
-    img = img.modulate({ brightness, saturation });
+  if (brightness !== 1) {
+    img = img.modulate({ brightness });
   }
   // 縮小によるにじみを戻すための、ごく弱いシャープ（見た目を変える処理ではない）
   if (r.sharpen !== false) {
@@ -158,8 +165,12 @@ for (const r of outputs) {
   const outPath = join(OUT_DIR, r.out);
   mkdirSync(dirname(outPath), { recursive: true });
   const info = await img
+    // sRGB へ変換してプロファイルを埋め込む。
+    // iPhone の Display P3 写真からプロファイルを捨てると、ブラウザが sRGB として
+    // 解釈して色がずれるため。EXIF は付かない（sharp の既定動作）。
+    .withIccProfile('srgb')
     .jpeg({ quality: r.quality ?? 86, mozjpeg: true, chromaSubsampling: '4:4:4' })
-    .toFile(outPath); // ← sharp は既定で EXIF を出力しない
+    .toFile(outPath);
 
   console.log(
     `  ✓ ${label.padEnd(34)} ${info.width}x${info.height}  ${fmtKB(info.size).padStart(6)}  (元 ${meta.width}x${meta.height} → 切出 ${crop.width}x${crop.height} @${crop.left},${crop.top})`

@@ -6,12 +6,13 @@
   "description": "青松山 平成院 植樹葬霊園 公式サイト",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && npm run check:todo",
+    "build": "astro build && npm run check:todo && npm run check:exif",
     "preview": "astro preview",
     "images": "node scripts/derive-images.mjs",
     "images:dry": "node scripts/derive-images.mjs --dry",
     "images:apply": "node scripts/derive-images.mjs --apply",
-    "check:todo": "node scripts/check-todo.mjs"
+    "check:todo": "node scripts/check-todo.mjs",
+    "check:exif": "node scripts/check-exif.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
