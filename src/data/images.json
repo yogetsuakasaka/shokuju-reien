@@ -58,7 +58,7 @@
       "aspect": "3 / 2"
     },
     "monument-wa": {
-      "file": null,
+      "file": "monuments/monument-wa.jpg",
       "alt": "「和」と刻まれた石碑",
       "want": "平成院についてのページ。「和」の石碑。",
       "aspect": "3 / 2"
@@ -82,7 +82,7 @@
       "aspect": "1 / 1"
     },
     "season-autumn": {
-      "file": null,
+      "file": "seasons/season-autumn.jpg",
       "alt": "紅葉した木々",
       "want": "四季セクション（秋）。紅葉。",
       "aspect": "1 / 1"
@@ -94,8 +94,8 @@
       "aspect": "16 / 9"
     },
     "memorial": {
-      "file": null,
-      "alt": "永代供養墓の前で行われる合同追悼式",
+      "file": "grounds/memorial.jpg",
+      "alt": "石碑「和」の前で執り行われる合同追悼式",
       "want": "合同追悼式のセクション。参列者の顔が判別できない引き・後ろ姿の構図にすること（肖像権への配慮）。",
       "aspect": "16 / 9"
     },
@@ -106,17 +106,16 @@
       "aspect": "16 / 9"
     },
     "access-entrance": {
-      "file": null,
-      "alt": "霊園の入口",
-      "want": "アクセスページ。目印になる入口の写真。1枚だけ、軽量なものを。",
+      "file": "grounds/access-entrance.jpg",
+      "alt": "霊園の名を刻んだ石碑と、その奥に広がる境内",
+      "want": "アクセスページ。目印になる入口の写真。1枚だけ、軽量なものを。現在は入口の写真がないため、霊園名の石碑を暫定で使用している。",
       "aspect": "16 / 9"
     }
   },
   "_todo": [
-    "未投入は4スロット：monument-wa / season-autumn / memorial / access-entrance。",
-    "monument-wa は、「和」が永代供養墓そのものかの確認が取れるまで保留（候補写真は用意済み）。",
-    "season-autumn は紅葉の寄りが1枚必要（現在の作業用画像では、紅葉がピント面から外れているものしかない）。",
-    "memorial は参列者の掲載同意が確認できるまで入れない。",
-    "access-entrance は入口が写った写真がまだない。"
+    "全18スロットに写真が入っています。未投入はありません。",
+    "暫定採用が4件（差し替え候補）：access-entrance（入口の写真がない）／season-autumn（紅葉がピント面にない）／season-spring（桜がぼけている）／story-soil（土の主張が弱い）。",
+    "memorial（07）は参列者の掲載同意が未確認のため、顔が判別できない範囲だけを切り出しています。切り出し位置を左へ動かすと顔が入るので、scripts/image-recipes.json の fx を下げないこと。",
+    "monument-wa は、「和」が永代供養墓そのものかの確認待ち。写真は入れましたが、これをもとに本文で事実を新たに断定しないこと。"
   ]
 }

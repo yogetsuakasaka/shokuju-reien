@@ -162,10 +162,10 @@
       "source": "17-omairi-reien.JPG",
       "aspect": "1:1",
       "fx": 0.72,
-      "fy": 0.4,
-      "zoom": 1.7,
+      "fy": 0.22,
+      "zoom": 1.9,
       "width": 1600,
-      "_memo": "四季（初夏）。木もれ日の斜面と山アジサイ。人物が入らない右側だけを使う。"
+      "_memo": "四季（初夏）。木もれ日の斜面。人物が入らない右側を使う。手前に山アジサイが大きく入ると story-soil（18）と似て見えるため、花が奥の点として写る位置まで上げてある。"
     },
     {
       "key": "season-flower",
@@ -181,10 +181,16 @@
     {
       "key": "season-autumn",
       "out": "seasons/season-autumn.jpg",
-      "source": null,
+      "source": "09-kukaku-example.JPG",
       "aspect": "1:1",
+      "fx": 0.88,
+      "fy": 0.2,
+      "zoom": 3.5,
       "width": 1600,
-      "_memo": "四季（秋）。未充足。紅葉が写るのは 01・09・10 の3枚だけで、01 と 10 は紅葉がピント面から外れており拡大に耐えない。09 は TOP 内での重複を避けるため使わない。紅葉の寄りを1枚お願いしたい。"
+      "_memo": "四季（秋）。暫定。09 の右上、斜面の紅葉だけを切り出す。story-plant（同じ 09）とは切り出し範囲が重ならない位置を選んである（story-plant は x0.45〜0.73、こちらは x0.78〜0.98）。166px でも紅葉と分かることを優先した。ピントの合った紅葉の寄りが撮れたら差し替える。",
+      "adjust": {
+        "contrast": 1.04
+      }
     },
     {
       "key": "monument-saigyo",
@@ -200,18 +206,21 @@
     {
       "key": "monument-wa",
       "out": "monuments/monument-wa.jpg",
-      "source": null,
+      "source": "10-eitaikuyo-mounment.JPG",
       "aspect": "3:2",
       "width": 2000,
-      "_memo": "「和」の石碑。刻字が読める寄り。候補は 10-eitaikuyo-mounment.JPG（fx 0.5 / fy 0.5 / zoom 1）だが、「和」が永代供養墓そのものかの確認が取れるまで保留。確認が取れたら、置き場所（/about/ か /plans/ か）とあわせて判断する。"
+      "_memo": "「和」の石碑。刻字が最も大きく読める1枚。切らずにそのまま使う。※「和」が永代供養墓そのものかは未確認のため、この写真をもとに本文・キャプションで事実を新たに断定しないこと。確認が取れたら掲載場所（/about/ か /plans/ か）を見直す。"
     },
     {
       "key": "memorial",
       "out": "grounds/memorial.jpg",
-      "source": null,
+      "source": "07-tsuito-people.JPG",
       "aspect": "16:9",
+      "fx": 0.9,
+      "fy": 0.52,
+      "zoom": 2.4,
       "width": 2000,
-      "_memo": "合同追悼式。参列者の顔が判別できない構図に限る（引き・後ろ姿・手元）。掲載同意の確認が済むまで入れないこと。"
+      "_memo": "合同追悼式。原画の左側には正面を向いた参列者が写っているため、右端いっぱいまで寄せ（fx は右端でクランプされる）、後ろ姿だけを残してある。zoom を 2.4 より下げると左から顔が入る。下げないこと。08-tsuito-chanting は顔が判別できるため使わない。"
     },
     {
       "key": "about-grounds",
@@ -230,11 +239,17 @@
     {
       "key": "access-entrance",
       "out": "grounds/access-entrance.jpg",
-      "source": null,
+      "source": "05-drone-monument-circle.JPG",
       "aspect": "16:9",
+      "fx": 0.62,
+      "fy": 0.68,
+      "zoom": 1.6,
       "width": 2000,
       "quality": 82,
-      "_memo": "アクセスページ。目印になる入口。現地は電波が弱い前提なので、やや強めに圧縮。"
+      "_memo": "アクセスページ。暫定。入口そのものを写した写真がまだないため、霊園名を刻んだ石碑と進入路が入る範囲を使い、「着いたらこういう場所」が分かるようにしている。入口・看板の写真が撮れたら差し替える。現地は電波が弱い前提なので、やや強めに圧縮。",
+      "adjust": {
+        "contrast": 1.04
+      }
     }
   ]
 }
