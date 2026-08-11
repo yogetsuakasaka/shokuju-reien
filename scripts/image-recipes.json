@@ -57,12 +57,13 @@
     {
       "key": "grounds-aerial",
       "out": "grounds/grounds-aerial.jpg",
-      "source": "02-drone-wide.JPG",
+      "source": "04-drone-plots.JPG",
       "aspect": "16:9",
-      "fx": 0.5,
-      "fy": 0.44,
+      "fx": 0.44,
+      "fy": 0.52,
+      "zoom": 1.15,
       "width": 2000,
-      "_memo": "「14,000坪の境内」セクション。山並みと森の広がりを見せる。",
+      "_memo": "「14,000坪の境内」セクション。Hero（02）と同じ絵が二度出ないよう、区画の並びと森の広がりが見える 04 を使う。",
       "adjust": {
         "contrast": 1.05
       }
@@ -70,30 +71,28 @@
     {
       "key": "plans-section",
       "out": "grounds/plans-section.jpg",
-      "source": "04-drone-plots.JPG",
+      "source": "09-kukaku-example.JPG",
       "aspect": "16:9",
-      "fx": 0.4,
-      "fy": 0.46,
+      "fx": 0.5,
+      "fy": 0.52,
+      "zoom": 1.15,
       "width": 2000,
-      "_memo": "費用ページ。区画の並びが分かる範囲を残す。",
-      "zoom": 1.3,
+      "_memo": "費用ページ。上空からではなく目線の高さで、一区画の実際の姿を見せる。",
       "adjust": {
-        "contrast": 1.06,
-        "brightness": 1.02
+        "contrast": 1.03
       }
     },
     {
       "key": "story-under",
       "out": "story/story-under.jpg",
-      "source": "05-drone-monument-circle.JPG",
+      "source": "19-circle-diagonal.JPG",
       "aspect": "1:1",
-      "fx": 0.41,
-      "fy": 0.45,
-      "zoom": 2.0,
+      "fx": 0.5,
+      "fy": 0.5,
       "width": 1600,
-      "_memo": "物語③。円形区画を中心に。右上の民家が入らないよう fx を左寄りに。",
+      "_memo": "物語③。夏の円形区画を目線の高さから。「木のもとへ」は上空からより地面の高さの方が伝わる。",
       "adjust": {
-        "contrast": 1.04
+        "contrast": 1.03
       }
     },
     {
@@ -109,50 +108,75 @@
     {
       "key": "story-plant",
       "out": "story/story-plant.jpg",
-      "source": null,
+      "source": "09-kukaku-example.JPG",
       "aspect": "1:1",
+      "fx": 0.586,
+      "fy": 0.5,
+      "zoom": 2.4,
       "width": 1600,
-      "_memo": "物語①「一本の木を、植える。」植樹の様子、または植えたばかりの苗木。"
+      "_memo": "物語①「一本の木を、植える。」支柱を添えられた若木と、盛られたばかりの土。日陰で沈むため、ごく軽く起こす。",
+      "adjust": {
+        "contrast": 1.05,
+        "brightness": 1.05
+      }
     },
     {
       "key": "story-seasons",
       "out": "story/story-seasons.jpg",
-      "source": null,
+      "source": "14-eitaikuyo-circle.JPG",
       "aspect": "1:1",
+      "fx": 0.48,
+      "fy": 0.75,
+      "zoom": 2.2,
       "width": 1600,
-      "_memo": "物語②「その木と、季節を重ねる。」新緑、または花をつけた木。"
+      "_memo": "物語②「その木と、季節を重ねる。」咲きそろったツツジ。原画左端の人物はこのトリミングで外れる。"
     },
     {
       "key": "story-soil",
       "out": "story/story-soil.jpg",
-      "source": null,
+      "source": "18-Ajisai.JPG",
       "aspect": "1:1",
+      "fx": 0.36,
+      "fy": 0.74,
+      "zoom": 2.4,
       "width": 1600,
-      "_memo": "物語④「土から生まれ、土へ還る。」地面・落ち葉・木もれ日の寄り。"
+      "_memo": "物語④「土から生まれ、土へ還る。」落ち葉と木もれ日の地面。暫定。より土が主役の寄りが撮れたら差し替える。"
     },
     {
       "key": "season-spring",
       "out": "seasons/season-spring.jpg",
-      "source": null,
+      "source": "12-eitaikuyo-diagonal.JPG",
       "aspect": "1:1",
+      "fx": 0.14,
+      "fy": 0.28,
+      "zoom": 2.6,
       "width": 1600,
-      "_memo": "四季（春）。表示は最小166pxなので、引きではなく寄りの桜を。"
+      "_memo": "四季（春）。ピントは奥に来ているため桜はやわらかい。ピントの合った寄りの桜が撮れたら差し替える。",
+      "adjust": {
+        "contrast": 1.06
+      }
     },
     {
       "key": "season-green",
       "out": "seasons/season-green.jpg",
-      "source": null,
+      "source": "17-omairi-reien.JPG",
       "aspect": "1:1",
+      "fx": 0.72,
+      "fy": 0.4,
+      "zoom": 1.7,
       "width": 1600,
-      "_memo": "四季（初夏）。新緑の寄り。"
+      "_memo": "四季（初夏）。木もれ日の斜面と山アジサイ。人物が入らない右側だけを使う。"
     },
     {
       "key": "season-flower",
       "out": "seasons/season-flower.jpg",
-      "source": null,
+      "source": "15-shakunage.JPG",
       "aspect": "1:1",
+      "fx": 0.45,
+      "fy": 0.55,
+      "zoom": 1.15,
       "width": 1600,
-      "_memo": "四季（花）。シャクナゲまたはヤマアジサイの花のかたまり。"
+      "_memo": "四季（花）。シャクナゲの寄り。"
     },
     {
       "key": "season-autumn",
@@ -160,7 +184,7 @@
       "source": null,
       "aspect": "1:1",
       "width": 1600,
-      "_memo": "四季（秋）。紅葉の寄り。"
+      "_memo": "四季（秋）。未充足。紅葉が写るのは 01・09・10 の3枚だけで、01 と 10 は紅葉がピント面から外れており拡大に耐えない。09 は TOP 内での重複を避けるため使わない。紅葉の寄りを1枚お願いしたい。"
     },
     {
       "key": "monument-saigyo",
@@ -179,7 +203,7 @@
       "source": null,
       "aspect": "3:2",
       "width": 2000,
-      "_memo": "「和」の石碑。刻字が読める寄り。"
+      "_memo": "「和」の石碑。刻字が読める寄り。候補は 10-eitaikuyo-mounment.JPG（fx 0.5 / fy 0.5 / zoom 1）だが、「和」が永代供養墓そのものかの確認が取れるまで保留。確認が取れたら、置き場所（/about/ か /plans/ か）とあわせて判断する。"
     },
     {
       "key": "memorial",
@@ -192,12 +216,13 @@
     {
       "key": "about-grounds",
       "out": "grounds/about-grounds.jpg",
-      "source": "05-drone-monument-circle.JPG",
+      "source": "13-circle-diagonal.JPG",
       "aspect": "16:9",
       "width": 2000,
-      "_memo": "平成院についてのページ。境内の風景。",
-      "fx": 0.5,
-      "fy": 0.5,
+      "_memo": "平成院についてのページ。円形区画と満開の枝垂れ桜。05 より近く鮮明で、story-under との重複も避けられる。",
+      "fx": 0.48,
+      "fy": 0.52,
+      "zoom": 1.05,
       "adjust": {
         "contrast": 1.04
       }

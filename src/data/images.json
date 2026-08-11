@@ -16,33 +16,33 @@
       "aspect": "3 / 2"
     },
     "story-plant": {
-      "file": null,
+      "file": "story/story-plant.jpg",
       "alt": "植樹された若い花木の苗木",
       "want": "「一本の木を、植える。」の場面。植樹の様子、または植えられたばかりの苗木。",
       "aspect": "1 / 1"
     },
     "story-seasons": {
-      "file": null,
-      "alt": "新緑につつまれた境内の木々",
+      "file": "story/story-seasons.jpg",
+      "alt": "咲きそろったツツジと、刈り込まれた植栽の斜面",
       "want": "「その木と、季節を重ねる。」の場面。新緑、または花をつけた木。",
       "aspect": "1 / 1"
     },
     "story-under": {
       "file": "story/story-under.jpg",
-      "alt": "西行桜を中心とした円形の区画",
+      "alt": "青葉をひろげた枝垂れ桜を中心とした円形の区画",
       "want": "「そしていつか、その木のもとへ。」の場面。西行桜を中心とした円形区画。",
       "aspect": "1 / 1"
     },
     "story-soil": {
-      "file": null,
-      "alt": "森の地面に射しこむ木もれ日",
+      "file": "story/story-soil.jpg",
+      "alt": "落ち葉の積もった林床に射しこむ木もれ日とヤマアジサイ",
       "want": "「土から生まれ、土へ還る。」の場面。地面・落ち葉・木もれ日など、土を感じる寄りの写真。",
       "aspect": "1 / 1"
     },
     "grounds-aerial": {
       "file": "grounds/grounds-aerial.jpg",
-      "alt": "上空から見た14,000坪の境内と周囲の山々",
-      "want": "「14,000坪の境内」セクション。ドローンによる横位置の全景。",
+      "alt": "上空から見た境内の植樹葬墓地と、それを囲む森",
+      "want": "「14,000坪の境内」セクション。ドローンによる横位置の全景。Hero と同じ写真を使わないこと（パソコンでは同じ絵が二度出るため）。",
       "aspect": "16 / 9"
     },
     "monument-hoshi": {
@@ -64,19 +64,19 @@
       "aspect": "3 / 2"
     },
     "season-spring": {
-      "file": null,
+      "file": "seasons/season-spring.jpg",
       "alt": "満開の桜",
       "want": "四季セクション（春）。桜。",
       "aspect": "1 / 1"
     },
     "season-green": {
-      "file": null,
-      "alt": "初夏の新緑",
+      "file": "seasons/season-green.jpg",
+      "alt": "木もれ日が射す初夏の斜面",
       "want": "四季セクション（初夏）。新緑。",
       "aspect": "1 / 1"
     },
     "season-flower": {
-      "file": null,
+      "file": "seasons/season-flower.jpg",
       "alt": "咲きそろったシャクナゲ",
       "want": "四季セクション（花）。シャクナゲ、またはヤマアジサイ。",
       "aspect": "1 / 1"
@@ -89,7 +89,7 @@
     },
     "plans-section": {
       "file": "grounds/plans-section.jpg",
-      "alt": "植樹葬墓地の区画",
+      "alt": "苗木が植えられた植樹葬墓地の区画",
       "want": "費用ページ。区画の様子がわかる写真。",
       "aspect": "16 / 9"
     },
@@ -101,7 +101,7 @@
     },
     "about-grounds": {
       "file": "grounds/about-grounds.jpg",
-      "alt": "青松山 平成院の境内",
+      "alt": "上空から見た円形の区画と、満開の枝垂れ桜",
       "want": "平成院についてのページ。境内の風景。",
       "aspect": "16 / 9"
     },
@@ -113,7 +113,10 @@
     }
   },
   "_todo": [
-    "すべての写真が未投入。iPhone から位置情報を外した写真を src/images/work/ にアップロードし、scripts/image-recipes.json の source を埋めて npm run images:apply を実行する。",
-    "合同追悼式の写真は、参列者の掲載同意が取れているか確認してから使う。"
+    "未投入は4スロット：monument-wa / season-autumn / memorial / access-entrance。",
+    "monument-wa は、「和」が永代供養墓そのものかの確認が取れるまで保留（候補写真は用意済み）。",
+    "season-autumn は紅葉の寄りが1枚必要（現在の作業用画像では、紅葉がピント面から外れているものしかない）。",
+    "memorial は参列者の掲載同意が確認できるまで入れない。",
+    "access-entrance は入口が写った写真がまだない。"
   ]
 }

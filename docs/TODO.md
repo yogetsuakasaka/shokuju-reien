@@ -50,17 +50,25 @@
 > 切り出し・リサイズ・配置・`images.json` への紐付けまで自動で行われます。
 > 切り出し方は `scripts/image-recipes.json`、手順は CLAUDE.md「5. 写真を追加する」。
 
-**投入済み（8スロット）**：hero / hero-wide / grounds-aerial / plans-section /
-story-under / monument-hoshi / monument-saigyo / about-grounds
+**投入済み（14スロット）**：hero / hero-wide / grounds-aerial / plans-section /
+story-plant / story-seasons / story-under / story-soil /
+season-spring / season-green / season-flower /
+monument-hoshi / monument-saigyo / about-grounds
 
-- [ ] ★ **未投入が9スロット**：story-plant／story-seasons／story-soil／
-      season-spring／season-green／season-flower／season-autumn／monument-wa／access-entrance
-- [ ] ★ **四季の4枚は「寄り」の写真**が必要（表示166pxのため、引きの風景では判別不可）
-- [ ] ★ **「和」の石碑の単独写真**（人が写っていないもの）。
-      07-tsuito-people には写り込んでいるが、参列者越しで単独掲載には不十分
+- [ ] ★ **未投入が4スロット**：monument-wa／season-autumn／memorial／access-entrance
+- [ ] ★ **season-autumn（四季・秋）に紅葉の寄りが1枚必要**。
+      紅葉が写る作業用画像は 01・09・10 の3枚のみで、01 と 10 は紅葉がピント面から外れており
+      拡大に耐えない。09 は TOP 内での重複を避けるため使わない方針
+- [ ] ★ **monument-wa は「和」の確認待ち**。候補（10-eitaikuyo-mounment.JPG）は用意済みだが、
+      「和」が永代供養墓そのものかを確認してから、置き場所とあわせて判断する
 - [ ] ★ **合同追悼式（memorial）は保留中**。
       07-tsuito-people は後ろ姿中心で構図は適合するが、**参列者の掲載同意が未確認**。
       08-tsuito-chanting は参列者の顔が判別できるため使用しない
+- [ ] ★ **access-entrance は該当写真なし**。入口・看板・道路から見た目印の写真が1枚も無い
+- [ ] 差し替えたい暫定採用が2枚：story-soil（土が主役の寄り）／season-spring（ピントの合った桜）
+- [ ] **TOP の初期転送量が 743KB**（スマホ375px・物語セクションまで読み込んだ時点）。
+      CLAUDE.md の目安 500KB を超えている。Hero だけなら 272KB。
+      物語4場面を2場面に減らすか、目安を見直すかの判断が必要（C の項目とあわせて検討）
 - [ ] 写真は**長辺3000px前後・EXIF（位置情報）を外した JPEG** で
       `src/images/work/` へ（Hero候補のみ4000px）
 - [ ] ドローン撮影の飛行許可記録の確認
@@ -69,6 +77,11 @@ story-under / monument-hoshi / monument-saigyo / about-grounds
 ### A-5. 法務・霊園情報
 
 - [ ] ★ 墓地経営許可の有無と番号
+- [ ] ★ **「和」の石碑は永代供養墓そのものか**。
+      写真（11・12・14）では香炉と花立を備えた墓の形をしており、07 の合同追悼式もその前で
+      行われている。規約 第18条は合同追悼式を「永代供養墓前」と定めている。
+      もし同一のものであれば、`monument-wa` の掲載場所（/about/ か /plans/ か）と
+      キャプション「境内の石碑「和」」を見直す必要がある
 - [ ] 平成院の沿革（**第三者サイトの記述は使いません**。一次確認が必要）
 - [ ] ペットの可否
 
