@@ -11,6 +11,7 @@
     "images": "node scripts/derive-images.mjs",
     "images:dry": "node scripts/derive-images.mjs --dry",
     "images:apply": "node scripts/derive-images.mjs --apply",
+    "ogp": "node scripts/make-ogp.mjs",
     "check:todo": "node scripts/check-todo.mjs",
     "check:exif": "node scripts/check-exif.mjs"
   },

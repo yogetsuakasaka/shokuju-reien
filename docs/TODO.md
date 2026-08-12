@@ -76,7 +76,8 @@
 - [ ] 写真は**長辺3000px前後・EXIF（位置情報）を外した JPEG** で
       `src/images/work/` へ（Hero候補のみ4000px）
 - [ ] ドローン撮影の飛行許可記録の確認
-- [ ] OGP画像（SNSでシェアされたときに表示される画像）— 現在未設定
+- ✅ OGP画像 — `public/ogp.jpg`（1200×630／02-drone-wide から生成）。
+      作り直しは `npm run ogp`（`scripts/make-ogp.mjs`）
 
 ### A-5. 法務・霊園情報
 
@@ -92,6 +93,14 @@
 ### A-6. ドメイン・公開作業
 
 - [ ] ★ `shokuju-reien.jp` の登録状況の確認（失効していないか）
+- [ ] ★ **Preview URL（`*.workers.dev`）を検索エンジンにインデックスさせない設定**。
+      Cloudflare 管理画面での操作が必要です。
+      **`public/_headers` や BaseLayout に noindex を書かないこと**
+      — どちらも本番 `shokuju-reien.jp` にもそのまま適用され、本番が
+      インデックスされなくなる事故につながります。
+      推奨は Cloudflare Zero Trust の Access を Preview のホスト名にかけること
+      （コード側は一切変更せず、本番へ混入する経路がありません）。
+      独自ドメイン接続後は、Workers の設定で `workers.dev` を無効化するのが最終形です
 - [ ] Cloudflare Pages への接続（ビルド `npm run build` / 出力 `dist`）
 - [ ] 公開後、Google Search Console にサイトマップを送信
 - [ ] **Google ビジネスプロフィールの整備**（サイトより先に効きます。NAPをサイトと完全一致させる）

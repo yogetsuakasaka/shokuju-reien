@@ -8,7 +8,7 @@ import plans from '../data/plans.json';
 import trees from '../data/trees.json';
 
 const description =
-  '岩手県洋野町、14,000坪の境内にある青松山 平成院の植樹葬霊園。生前にご自身で墓標となる花木を選び、苗木を植え、没後はその木のもとへ埋蔵されます。宗教・宗派は問いません。樹木葬・永代供養のご相談を承っています。';
+  '岩手県洋野町、14,000坪の境内にある青松山 平成院の樹木葬墓地。生前にご自身で墓標となる花木を選び、その苗木を植えるところから始まる「植樹葬」です。没後は自ら植えた木のもとへ埋蔵されます。宗教・宗派は問いません。';
 
 // 物語部分。写真キーは src/data/images.json に対応。
 const scenes = [
@@ -25,28 +25,66 @@ const seasons = [
   { image: 'season-autumn', name: '秋', text: '木々が色づき、境内が静まります。' },
 ];
 
+/**
+ * 構造化データ。schema.org に実在する型・プロパティだけを使い、
+ * 確認できていない項目（緯度経度・営業時間・価格帯・対応エリアなど）は入れない。
+ *
+ *   Cemetery      … 霊園そのもの（主 entity）
+ *   Organization  … 運営主体「宗教法人 青松山 平成院」
+ *   WebSite       … このサイト
+ *
+ * Cemetery は Place の系統なので「運営者」を直接持てない。
+ * Organization 側の location で霊園を指し、両者を結び付けている。
+ */
+const ORIGIN = 'https://shokuju-reien.jp/';
+const address = {
+  '@type': 'PostalAddress',
+  addressCountry: 'JP',
+  postalCode: site.office.postalCode,
+  addressRegion: site.office.region,
+  addressLocality: site.office.addressLocality,
+  streetAddress: site.office.streetAddress,
+};
+
 const jsonLd = [
   {
     '@context': 'https://schema.org',
-    '@type': 'Cemetery',
-    name: site.name,
-    url: 'https://shokuju-reien.jp/',
-    telephone: site.office.tel,
-    faxNumber: site.office.fax,
-    address: {
-      '@type': 'PostalAddress',
-      addressCountry: 'JP',
-      postalCode: site.office.postalCode,
-      addressRegion: site.office.region,
-      addressLocality: site.office.addressLocality,
-      streetAddress: site.office.streetAddress,
-    },
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${ORIGIN}#website`,
+        url: ORIGIN,
+        name: site.name,
+        inLanguage: 'ja',
+        publisher: { '@id': `${ORIGIN}#organization` },
+      },
+      {
+        '@type': 'Organization',
+        '@id': `${ORIGIN}#organization`,
+        name: site.organization,
+        url: ORIGIN,
+        telephone: site.office.tel,
+        faxNumber: site.office.fax,
+        address,
+        location: { '@id': `${ORIGIN}#cemetery` },
+      },
+      {
+        '@type': 'Cemetery',
+        '@id': `${ORIGIN}#cemetery`,
+        name: site.name,
+        url: ORIGIN,
+        telephone: site.office.tel,
+        faxNumber: site.office.fax,
+        address,
+        image: `${ORIGIN}ogp.jpg`,
+      },
+    ],
   },
 ];
 ---
 
 <BaseLayout
-  title="青松山 平成院 植樹葬霊園｜岩手・洋野町の樹木葬"
+  title="岩手・洋野町の樹木葬｜青松山 平成院 植樹葬霊園"
   description={description}
   path="/"
   jsonLd={jsonLd}
@@ -67,12 +105,15 @@ const jsonLd = [
     }
   </section>
 
-  {/* ---------- 植樹葬とは ---------- */}
+  {/* ---------- 樹木葬と、植樹葬 ---------- */}
   <section class="section section--stone" aria-labelledby="about-shokuju">
     <div class="wrap-text prose" data-reveal>
-      <p class="section__label">植樹葬について</p>
-      <h2 class="section__title" id="about-shokuju">平成院の植樹葬とは</h2>
+      <p class="section__label">樹木葬と、植樹葬</p>
+      <h2 class="section__title" id="about-shokuju">樹木葬と、平成院の植樹葬</h2>
       <p class="lead">
+        霊園規約は、この墓地を「樹木葬墓地」と定めています。そのなかで、ご自身の手で一本の木を植えることから始まる第2期の墓地を、平成院では「植樹葬」と呼んでいます。
+      </p>
+      <p>
         平成院の植樹葬は、ご契約のときにご自身で墓標となる花木を選び、その苗木を植えるところから始まります。
       </p>
       <p>
