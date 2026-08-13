@@ -19,6 +19,17 @@ const description =
  */
 const { summary, fullText } = rules;
 
+/**
+ * 章のアンカーID。規約全文は長いため、章へ直接飛べるようにする。
+ * 章名が現れた順に chapter-1, chapter-2 … を割り当てる。
+ * 章名そのものをIDにしないのは、全角スペースを含むため。
+ */
+const chapterIds = new Map<string, string>();
+for (const a of fullText.articles ?? []) {
+  if (!chapterIds.has(a.chapter)) chapterIds.set(a.chapter, `chapter-${chapterIds.size + 1}`);
+}
+const chapters = [...chapterIds].map(([name, id]) => ({ name, id }));
+
 const jsonLd = [
   {
     '@context': 'https://schema.org',
@@ -90,10 +101,26 @@ const jsonLd = [
                 ))}
               </div>
             )}
+
+            {/* 章へのアンカー。全文が長いため、読みたい章へ直接移動できるようにする */}
+            {chapters.length > 0 && (
+              <nav class="chapter-nav" aria-label="規約全文の章">
+                <ul class="linkcards">
+                  {chapters.map((c) => (
+                    <li>
+                      <a href={`#${c.id}`}>{c.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
+
             {fullText.articles.map((a, i) => (
               <>
                 {a.chapter !== fullText.articles[i - 1]?.chapter && (
-                  <h3 class="chapter-head">{a.chapter}</h3>
+                  <h3 class="chapter-head" id={chapterIds.get(a.chapter)}>
+                    {a.chapter}
+                  </h3>
                 )}
                 <article class="article" id={`art-${i + 1}`}>
                   {/* 附則は章見出しと同じ文字列になるため、条の見出しは出さない */}
@@ -104,6 +131,13 @@ const jsonLd = [
                     <p class="article__body">{para}</p>
                   ))}
                 </article>
+                {a.chapter !== fullText.articles[i + 1]?.chapter && (
+                  <p class="chapter-back">
+                    <a class="link-more" href="#fulltext">
+                      規約全文の先頭へ戻る
+                    </a>
+                  </p>
+                )}
               </>
             ))}
           </>

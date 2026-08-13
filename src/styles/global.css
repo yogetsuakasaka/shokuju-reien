@@ -939,6 +939,27 @@ a[href^="tel:"]:not(.btn):not(.tel-big):not(.header-tel):not(.is-primary) {
   letter-spacing: 0.06em;
 }
 
+/* 章アンカーで移動したとき、見出しが画面の最上端に貼り付かないようにする。
+   ヘッダーは position:relative（固定ではない）ため隠れることはないが、
+   将来ヘッダーを追従させても隠れないだけの余白を確保しておく。 */
+.chapter-head,
+#important,
+#fulltext {
+  scroll-margin-top: var(--s6);
+}
+
+/* 章の終わりに置く「規約全文の先頭へ戻る」 */
+.chapter-back {
+  margin-top: var(--s6);
+  padding-top: var(--s4);
+  border-top: 1px solid var(--line);
+}
+
+/* 規約全文の章アンカー */
+.chapter-nav {
+  margin-top: var(--s7);
+}
+
 /* 規約全文の前に置く注記 */
 .preface {
   margin-top: var(--s5);
