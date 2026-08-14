@@ -1,0 +1,86 @@
+---
+/**
+ * TOP の Hero。
+ * スマートフォンでは images.json の "hero"（縦構図推奨）、
+ * 900px 以上では "hero-wide"（横位置）があればそちらを使う。
+ * 横位置写真を無理に縦画面へ中央クロップしないための切り替え。
+ */
+import { getImage } from 'astro:assets';
+import imagesData from '../data/images.json';
+import site from '../data/site.json';
+
+// work/ は切り出し前の作業用画像、source/ は元画像の保管庫。
+// どちらも glob に含めると、未使用の大きな画像まで公開ビルドに出力されてしまうため除外する。
+// この除外を外さないこと（外すと 3000px の作業用マスターがそのまま公開されます）。
+const files = import.meta.glob<{ default: ImageMetadata }>(
+  [
+    '/src/images/**/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG}',
+    '!/src/images/work/**',
+    '!/src/images/source/**',
+  ],
+  { eager: true }
+);
+
+function resolve(key: string): ImageMetadata | undefined {
+  const entry = (imagesData.images as Record<string, any>)[key];
+  if (!entry?.file) return undefined;
+  const mod = files[`/src/images/${entry.file}`];
+  if (!mod) {
+    throw new Error(`[Hero] src/images/${entry.file} が見つかりません（images.json の "${key}"）。`);
+  }
+  return mod.default;
+}
+
+const heroEntry = (imagesData.images as Record<string, any>)['hero'];
+const portrait = resolve('hero');
+const wide = resolve('hero-wide');
+
+// Hero は全画面の写真なので、放っておくと重くなる。
+// 森の写真は情報量が多く圧縮が効きにくいため、幅の上限と品質をここで抑える。
+// （実測：1080px幅の WebP が quality 80 で 408KB、72 で 326KB）
+const portraitImg = portrait
+  ? await getImage({ src: portrait, widths: [480, 720, 900, 1080], format: 'webp', quality: 72 })
+  : null;
+const wideImg = wide
+  ? await getImage({ src: wide, widths: [1024, 1440, 1800], format: 'webp', quality: 72 })
+  : null;
+---
+
+<section class="hero on-dark" aria-labelledby="hero-title">
+  <div class="hero__media">
+    {
+      portraitImg && portrait ? (
+        <picture>
+          {wideImg && (
+            <source media="(min-width: 900px)" srcset={wideImg.srcSet.attribute} sizes="100vw" />
+          )}
+          <img
+            src={portraitImg.src}
+            srcset={portraitImg.srcSet.attribute}
+            sizes="100vw"
+            width={portrait.width}
+            height={portrait.height}
+            alt={heroEntry.alt}
+            fetchpriority="high"
+            decoding="sync"
+          />
+        </picture>
+      ) : (
+        <div class="ph ph--dark" style="height:100%" aria-hidden="true">
+          <p class="ph__label">Hero写真が入ります／{heroEntry.want}</p>
+        </div>
+      )
+    }
+  </div>
+
+  <div class="hero__inner wrap">
+    <h1 class="hero__tagline" id="hero-title">{site.tagline}</h1>
+    <p class="hero__lede">{site.lede}</p>
+    <div class="hero__actions">
+      <a class="btn btn--onDark" href={site.office.telHref}>
+        お電話でご相談 {site.office.tel}
+      </a>
+      <a class="btn btn--ghost" href="/concept/">植樹葬とは</a>
+    </div>
+  </div>
+</section>

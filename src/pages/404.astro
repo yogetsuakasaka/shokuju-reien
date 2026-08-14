@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import site from '../data/site.json';
+---
+
+<BaseLayout
+  title="ページが見つかりません"
+  description="お探しのページは見つかりませんでした。青松山 平成院 植樹葬霊園のご案内をご覧ください。"
+  path="/404/"
+>
+  <div class="page-head wrap">
+    <h1>ページが見つかりません</h1>
+    <p>お探しのページは、移動または削除された可能性があります。</p>
+  </div>
+
+  <section class="section wrap-text">
+    <ul class="linkcards">
+      <li><a href="/">ホーム</a></li>
+      <li><a href="/concept/">植樹葬とは</a></li>
+      <li><a href="/plans/">費用と区画</a></li>
+      <li><a href="/faq/">よくあるご質問</a></li>
+      <li><a href="/access/">アクセス・ご見学</a></li>
+      <li><a href="/about/">平成院について</a></li>
+    </ul>
+
+    <p style="margin-top:var(--s8);text-align:center">
+      <a class="tel-big" href={site.office.telHref}>
+        <span aria-hidden="true">☎</span>{site.office.tel}
+      </a>
+    </p>
+  </section>
+</BaseLayout>

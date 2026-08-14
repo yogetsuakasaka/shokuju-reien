@@ -1,0 +1,121 @@
+{
+  "_note": "写真の一元管理ファイル。写真を入れる手順は CLAUDE.md 『写真を追加する』を参照。",
+  "_howto": "写真は src/images/work/ にアップロードし、scripts/image-recipes.json に切り出し方を書いて npm run images:apply を実行すると、派生画像が生成されて下の file に紐付きます。手で file を書いても構いません。file が null のあいだはプレースホルダーが表示されます。",
+  "_rule": "AI生成画像・外部のストック写真を入れないこと。平成院で実際に撮影した写真だけを使う。",
+  "images": {
+    "hero": {
+      "file": "hero/hero-sp.jpg",
+      "alt": "山あいに広がる青松山 平成院の境内と霊園",
+      "want": "TOP最上部（スマートフォン）。ドローンによる境内・霊園の全景。全画面のcover表示のため、縦長ほど切り落としが少ない。9:16の縦構図を推奨。画面下40%は文字とグラデーションが重なるので、下側は静かな面に。",
+      "aspect": "9 / 16"
+    },
+    "hero-wide": {
+      "file": "hero/hero-pc.jpg",
+      "alt": "上空から見た青松山 平成院の境内と霊園の全景",
+      "want": "TOP最上部（パソコン）。横位置のドローン全景。3:2を推奨（16:9だと左右が2割ほど切られます）。未設定のままなら、パソコンでも hero の写真が使われます。",
+      "aspect": "3 / 2"
+    },
+    "story-plant": {
+      "file": "story/story-plant.jpg",
+      "alt": "植樹された若い花木の苗木",
+      "want": "「一本の木を、植える。」の場面。植樹の様子、または植えられたばかりの苗木。",
+      "aspect": "1 / 1"
+    },
+    "story-seasons": {
+      "file": "story/story-seasons.jpg",
+      "alt": "咲きそろったツツジと、刈り込まれた植栽の斜面",
+      "want": "「その木と、季節を重ねる。」の場面。新緑、または花をつけた木。",
+      "aspect": "1 / 1"
+    },
+    "story-under": {
+      "file": "story/story-under.jpg",
+      "alt": "青葉をひろげた枝垂れ桜を中心とした円形の区画",
+      "want": "「そしていつか、その木のもとへ。」の場面。西行桜を中心とした円形区画。",
+      "aspect": "1 / 1"
+    },
+    "story-soil": {
+      "file": "story/story-soil.jpg",
+      "alt": "落ち葉の積もった林床に射しこむ木もれ日とヤマアジサイ",
+      "want": "「土から生まれ、土へ還る。」の場面。地面・落ち葉・木もれ日など、土を感じる寄りの写真。",
+      "aspect": "1 / 1"
+    },
+    "grounds-aerial": {
+      "file": "grounds/grounds-aerial.jpg",
+      "alt": "上空から見た境内の植樹葬墓地と、それを囲む森",
+      "want": "「14,000坪の境内」セクション。ドローンによる横位置の全景。Hero と同じ写真を使わないこと（パソコンでは同じ絵が二度出るため）。",
+      "aspect": "16 / 9"
+    },
+    "monument-hoshi": {
+      "file": "monuments/monument-hoshi.jpg",
+      "alt": "「星と花と木のもとで」と刻まれた石碑",
+      "want": "コンセプトページ。「星と花と木のもとで」の石碑。",
+      "aspect": "3 / 2"
+    },
+    "monument-saigyo": {
+      "file": "monuments/monument-saigyo.jpg",
+      "alt": "西行法師の歌が刻まれた歌碑",
+      "want": "コンセプトページ。西行法師の歌碑。",
+      "aspect": "3 / 2"
+    },
+    "monument-wa": {
+      "file": "monuments/monument-wa.jpg",
+      "alt": "「和」と刻まれた石碑",
+      "want": "平成院についてのページ。「和」の石碑。",
+      "aspect": "3 / 2"
+    },
+    "season-spring": {
+      "file": "seasons/season-spring.jpg",
+      "alt": "満開の桜",
+      "want": "四季セクション（春）。桜。",
+      "aspect": "1 / 1"
+    },
+    "season-green": {
+      "file": "seasons/season-green.jpg",
+      "alt": "木もれ日が射す初夏の斜面",
+      "want": "四季セクション（初夏）。新緑。",
+      "aspect": "1 / 1"
+    },
+    "season-flower": {
+      "file": "seasons/season-flower.jpg",
+      "alt": "咲きそろったシャクナゲ",
+      "want": "四季セクション（花）。シャクナゲ、またはヤマアジサイ。",
+      "aspect": "1 / 1"
+    },
+    "season-autumn": {
+      "file": "seasons/season-autumn.jpg",
+      "alt": "紅葉した木々",
+      "want": "四季セクション（秋）。紅葉。",
+      "aspect": "1 / 1"
+    },
+    "plans-section": {
+      "file": "grounds/plans-section.jpg",
+      "alt": "苗木が植えられた植樹葬墓地の区画",
+      "want": "費用ページ。区画の様子がわかる写真。",
+      "aspect": "16 / 9"
+    },
+    "memorial": {
+      "file": "grounds/memorial.jpg",
+      "alt": "石碑「和」の前で執り行われる合同追悼式",
+      "want": "合同追悼式のセクション。参列者の顔が判別できない引き・後ろ姿の構図にすること（肖像権への配慮）。",
+      "aspect": "16 / 9"
+    },
+    "about-grounds": {
+      "file": "grounds/about-grounds.jpg",
+      "alt": "上空から見た円形の区画と、満開の枝垂れ桜",
+      "want": "平成院についてのページ。境内の風景。",
+      "aspect": "16 / 9"
+    },
+    "access-entrance": {
+      "file": "grounds/access-entrance.jpg",
+      "alt": "霊園の名を刻んだ石碑と、その奥に広がる境内",
+      "want": "アクセスページ。目印になる入口の写真。1枚だけ、軽量なものを。現在は入口の写真がないため、霊園名の石碑を暫定で使用している。",
+      "aspect": "16 / 9"
+    }
+  },
+  "_todo": [
+    "全18スロットに写真が入っています。未投入はありません。",
+    "暫定採用が4件（差し替え候補）：access-entrance（入口の写真がない）／season-autumn（紅葉がピント面にない）／season-spring（桜がぼけている）／story-soil（土の主張が弱い）。",
+    "memorial（07）は参列者の掲載同意が未確認のため、顔が判別できない範囲だけを切り出しています。切り出し位置を左へ動かすと顔が入るので、scripts/image-recipes.json の fx を下げないこと。",
+    "monument-wa は、「和」が永代供養墓そのものかの確認待ち。写真は入れましたが、これをもとに本文で事実を新たに断定しないこと。"
+  ]
+}

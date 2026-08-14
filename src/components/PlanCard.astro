@@ -1,0 +1,50 @@
+---
+interface Props {
+  plan: {
+    id: string;
+    name: string;
+    size: string;
+    unit: string;
+    priceText: string;
+    entryFee: string;
+    annualFeeText: string;
+    treeRule: string;
+    species: string[] | null;
+  };
+}
+const { plan } = Astro.props;
+---
+
+<article class="plan" id={plan.id}>
+  <h3 class="plan__name">{plan.name}</h3>
+  <p class="plan__size">{plan.size}</p>
+
+  <p class="plan__price">
+    <span>{plan.unit}</span>
+    <b>{plan.priceText}</b>
+  </p>
+
+  <dl class="plan__meta">
+    <div>
+      <dt>入会金</dt>
+      <dd>{plan.entryFee}</dd>
+    </div>
+    <div>
+      <dt>年会費</dt>
+      <dd>{plan.annualFeeText}</dd>
+    </div>
+  </dl>
+
+  <div class="plan__body">
+    <p>{plan.treeRule}</p>
+    {
+      plan.species && (
+        <ul class="chips">
+          {plan.species.map((s) => (
+            <li>{s}</li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</article>

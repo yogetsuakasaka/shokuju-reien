@@ -1,0 +1,318 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Figure from '../components/Figure.astro';
+import FaqList from '../components/FaqList.astro';
+import site from '../data/site.json';
+import plans from '../data/plans.json';
+import trees from '../data/trees.json';
+
+const description =
+  '岩手県洋野町、14,000坪の境内にある青松山 平成院の樹木葬墓地。生前にご自身で墓標となる花木を選び、その苗木を植えるところから始まる「植樹葬」です。没後は自ら植えた木のもとへ埋蔵されます。宗教・宗派は問いません。';
+
+// 物語部分。写真キーは src/data/images.json に対応。
+const scenes = [
+  { image: 'story-plant', text: '一本の木を、植える。' },
+  { image: 'story-seasons', text: 'その木と、季節を重ねる。' },
+  { image: 'story-under', text: 'そしていつか、その木のもとへ。' },
+  { image: 'story-soil', text: '土から生まれ、土へ還る。' },
+];
+
+const seasons = [
+  { image: 'season-spring', name: '春', text: '木々が芽吹き、桜がひらきます。' },
+  { image: 'season-green', name: '初夏', text: '山あいが、一斉に緑に変わります。' },
+  { image: 'season-flower', name: '花の季節', text: 'シャクナゲやヤマアジサイが咲きそろいます。' },
+  { image: 'season-autumn', name: '秋', text: '木々が色づき、境内が静まります。' },
+];
+
+/**
+ * 構造化データ。schema.org に実在する型・プロパティだけを使い、
+ * 確認できていない項目（緯度経度・営業時間・価格帯・対応エリアなど）は入れない。
+ *
+ *   Cemetery      … 霊園そのもの（主 entity）
+ *   Organization  … 運営主体「宗教法人 青松山 平成院」
+ *   WebSite       … このサイト
+ *
+ * Cemetery は Place の系統なので「運営者」を直接持てない。
+ * Organization 側の location で霊園を指し、両者を結び付けている。
+ */
+const ORIGIN = 'https://shokuju-reien.jp/';
+const address = {
+  '@type': 'PostalAddress',
+  addressCountry: 'JP',
+  postalCode: site.office.postalCode,
+  addressRegion: site.office.region,
+  addressLocality: site.office.addressLocality,
+  streetAddress: site.office.streetAddress,
+};
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${ORIGIN}#website`,
+        url: ORIGIN,
+        name: site.name,
+        inLanguage: 'ja',
+        publisher: { '@id': `${ORIGIN}#organization` },
+      },
+      {
+        '@type': 'Organization',
+        '@id': `${ORIGIN}#organization`,
+        name: site.organization,
+        url: ORIGIN,
+        telephone: site.office.tel,
+        faxNumber: site.office.fax,
+        address,
+        location: { '@id': `${ORIGIN}#cemetery` },
+      },
+      {
+        '@type': 'Cemetery',
+        '@id': `${ORIGIN}#cemetery`,
+        name: site.name,
+        url: ORIGIN,
+        telephone: site.office.tel,
+        faxNumber: site.office.fax,
+        address,
+        image: `${ORIGIN}ogp.jpg`,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="岩手・洋野町の樹木葬｜青松山 平成院 植樹葬霊園"
+  description={description}
+  path="/"
+  jsonLd={jsonLd}
+>
+  <Hero />
+
+  {/* ---------- 物語（SCENE 2〜5） ---------- */}
+  <section class="section--flush wrap" aria-label="平成院の植樹葬">
+    {
+      scenes.map((scene) => (
+        <div class="scene" data-reveal>
+          <div class="scene__media">
+            <Figure name={scene.image} sizes="(min-width: 900px) 46vw, 92vw" />
+          </div>
+          <p class="scene__text">{scene.text}</p>
+        </div>
+      ))
+    }
+  </section>
+
+  {/* ---------- 樹木葬と、植樹葬 ---------- */}
+  <section class="section section--stone" aria-labelledby="about-shokuju">
+    <div class="wrap-text prose" data-reveal>
+      <p class="section__label">樹木葬と、植樹葬</p>
+      <h2 class="section__title" id="about-shokuju">樹木葬と、平成院の植樹葬</h2>
+      <p class="lead">
+        霊園規約は、この墓地を「樹木葬墓地」と定めています。そのなかで、ご自身の手で一本の木を植えることから始まる第2期の墓地を、平成院では「植樹葬」と呼んでいます。
+      </p>
+      <p>
+        平成院の植樹葬は、ご契約のときにご自身で墓標となる花木を選び、その苗木を植えるところから始まります。
+      </p>
+      <p>
+        霊園規約 第13条は、この墓地の趣旨を次のように定めています。人としてこの世に生を受け、自然界の恵みを一身に受けながら生かされてきたことへの感謝の証しとして植樹し、没後、自ら植えた樹木のそばで大地に還る——。
+      </p>
+      <p>
+        植樹葬墓地の使用には、会員ご本人による生前の明確な意思表示が必要です。墓地の使用は、会員一代限りとなります。
+      </p>
+      <p>
+        <a class="link-more" href="/concept/">植樹葬の考え方をくわしく見る</a>
+      </p>
+    </div>
+  </section>
+
+  {/* ---------- 3ステップ ---------- */}
+  <section class="section wrap" aria-labelledby="steps">
+    <div data-reveal>
+      <p class="section__label">はじまりから、還るまで</p>
+      <h2 class="section__title" id="steps">植樹葬の3つのとき</h2>
+    </div>
+
+    <ol class="steps" style="margin-top:var(--s7)" data-reveal>
+      <li>
+        <h3>選び、植える</h3>
+        <p>
+          ご契約のときに、墓標となる花木を選び、その苗木を植えます。植樹の際は平成院がお手伝いします。
+        </p>
+      </li>
+      <li>
+        <h3>季節を重ねる</h3>
+        <p>
+          植えた木は、季節ごとに姿を変えていきます。お参りいただける期間は、原則として{site.visit.period}です。
+        </p>
+      </li>
+      <li>
+        <h3>その木のもとへ</h3>
+        <p>
+          会員が亡くなられた後、ご自身が植えた樹木のもとへ埋蔵することができます。焼骨は「数年経てば土に溶ける埋蔵用容器」へ移し替えます。
+        </p>
+      </li>
+    </ol>
+  </section>
+
+  {/* ---------- 四季 ---------- */}
+  <section class="section section--stone" aria-labelledby="seasons">
+    <div class="wrap">
+      <div data-reveal>
+        <p class="section__label">四季</p>
+        <h2 class="section__title" id="seasons">木とともに、季節がめぐる</h2>
+      </div>
+
+      <ul class="seasons" style="margin-top:var(--s7)" data-reveal>
+        {
+          seasons.map((s) => (
+            <li>
+              <Figure name={s.image} sizes="(min-width: 820px) 22vw, 44vw" />
+              <h3>{s.name}</h3>
+              <p>{s.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="note" style="margin-top:var(--s6)">{trees.gardenNote}</p>
+    </div>
+  </section>
+
+  {/* ---------- 14,000坪 ---------- */}
+  <section class="section wrap" aria-labelledby="grounds">
+    <div data-reveal>
+      <p class="section__label">境内</p>
+      <h2 class="section__title" id="grounds">{site.areaSize}の境内に</h2>
+      <p class="lead" style="margin-top:var(--s5);max-width:var(--measure)">
+        青松山 平成院の境内は{site.areaSize}。山あいの森のなかに、植樹葬墓地と永代供養墓があります。
+      </p>
+    </div>
+    <div style="margin-top:var(--s7)" data-reveal>
+      <Figure name="grounds-aerial" sizes="100vw" />
+    </div>
+  </section>
+
+  {/* ---------- 費用 ---------- */}
+  <section class="section section--stone" aria-labelledby="plans">
+    <div class="wrap">
+      <div data-reveal>
+        <p class="section__label">費用</p>
+        <h2 class="section__title" id="plans">墓地と費用</h2>
+      </div>
+
+      <div class="plans-grid" style="margin-top:var(--s7)" data-reveal>
+        {
+          plans.plantingGraves.map((p) => (
+            <article class="plan">
+              <h3 class="plan__name">{p.name}</h3>
+              <p class="plan__size">{p.size}</p>
+              <p class="plan__price">
+                <span>{p.unit}</span>
+                <b>{p.priceText}</b>
+              </p>
+              <p class="plan__body">
+                {p.entryFee}／{p.annualFeeText}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+
+      <article class="plan" style="margin-top:var(--s5)" data-reveal>
+        <h3 class="plan__name">{plans.eternal.name}</h3>
+        <p class="plan__price">
+          <b>{plans.eternal.priceText}</b>
+          <span>
+            （{plans.eternal.breakdown.map((b) => `${b.label}${b.amountText}`).join('＋')}）
+          </span>
+        </p>
+        <p class="plan__body">
+          {plans.eternal.annualFeeText}／{plans.eternal.succession}
+        </p>
+      </article>
+
+      <p style="margin-top:var(--s6)" data-reveal>
+        <a class="link-more" href="/plans/">費用と区画をくわしく見る</a>
+      </p>
+      <p class="note" style="margin-top:var(--s4)">{plans.footnote}</p>
+    </div>
+  </section>
+
+  {/* ---------- 宗教・宗派 ---------- */}
+  <section class="section" aria-labelledby="religion">
+    <div class="wrap-text prose" data-reveal>
+      <p class="section__label">宗教・宗派</p>
+      <h2 class="section__title" id="religion">宗教・宗派は問いません</h2>
+      <p>
+        霊園規約 第3条により、宗教・宗派を問わずご入会いただけます。規約 第18条では、植樹葬墓地において、自ら信ずる宗教・宗派等に基づく儀礼を自由に行えると定めています。
+      </p>
+      <p>ただし、合同追悼式については管理者（平成院）が執行します。</p>
+    </div>
+  </section>
+
+  {/* ---------- 合同追悼式 ---------- */}
+  <section class="section section--stone" aria-labelledby="memorial">
+    <div class="wrap">
+      <div data-reveal>
+        <p class="section__label">年の行事</p>
+        <h2 class="section__title" id="memorial">合同追悼式</h2>
+        <p style="margin-top:var(--s5);max-width:var(--measure)">
+          {site.memorialService.statement}
+        </p>
+        <p class="note" style="margin-top:var(--s4)">{site.memorialService.scope}</p>
+      </div>
+      <div style="margin-top:var(--s7)" data-reveal>
+        <Figure name="memorial" sizes="100vw" />
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- FAQ抜粋 ---------- */}
+  <section class="section wrap" aria-labelledby="faq">
+    <div data-reveal>
+      <p class="section__label">よくあるご質問</p>
+      <h2 class="section__title" id="faq">はじめての方から、よくいただくご質問</h2>
+    </div>
+    <div style="margin-top:var(--s6)" data-reveal>
+      <FaqList onlyTop />
+      <p style="margin-top:var(--s6)"><a class="link-more" href="/faq/">すべてのご質問を見る</a></p>
+    </div>
+  </section>
+
+  {/* ---------- アクセス ---------- */}
+  <section class="section section--stone" aria-labelledby="access">
+    <div class="wrap" data-reveal>
+      <p class="section__label">アクセス</p>
+      <h2 class="section__title" id="access">所在地</h2>
+      <p style="margin-top:var(--s5)">
+        〒{site.office.postalCode}　{site.office.address}<br />
+        <a href={site.office.telHref}>TEL {site.office.tel}</a>
+      </p>
+      <p><a class="link-more" href="/access/">アクセス・ご見学のご案内</a></p>
+    </div>
+  </section>
+
+  {/* ---------- 見学CTA ---------- */}
+  <section class="section" aria-labelledby="visit-cta">
+    <div class="wrap-text" style="text-align:center" data-reveal>
+      <h2 class="section__title" id="visit-cta">まずは、森を見にいらしてください</h2>
+      <p style="margin-top:var(--s5)">
+        ご見学・ご相談は、霊園事務局へお電話ください。
+      </p>
+      <p style="margin-top:var(--s6)">
+        <a class="tel-big" href={site.office.telHref}>
+          <span aria-hidden="true">☎</span>{site.office.tel}
+        </a>
+      </p>
+      <p class="note" style="margin-top:var(--s4)">
+        {site.hachinohe.label}　<a href={site.hachinohe.telHref}>{site.hachinohe.tel}</a>
+      </p>
+      <p class="note" style="margin-top:var(--s5)">
+        墓参できる期間：{site.visit.period}／{site.visit.hours}<br />
+        {site.visit.note}
+      </p>
+    </div>
+  </section>
+</BaseLayout>

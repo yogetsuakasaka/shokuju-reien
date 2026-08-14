@@ -1,0 +1,255 @@
+{
+  "_note": "派生画像の設計図。npm run images でこの通りに切り出されます。",
+  "_howto": [
+    "1行が1枚の出力です。source に src/images/work/ 内のファイル名を書くと生成されます。",
+    "source が null のあいだは、そのスロットはスキップされ、プレースホルダーのままになります。",
+    "同じ作業用画像から複数の比率を切り出せます（例：全景 → hero-pc と grounds-aerial）。"
+  ],
+  "_fields": {
+    "key": "src/data/images.json のキー。--apply のときの紐付け先。",
+    "out": "src/images/ からの出力パス。",
+    "source": "src/images/work/ の中のファイル名。null ならスキップ。",
+    "aspect": "9:16 / 2:3 / 3:4 / 4:5 / 1:1 / 3:2 / 16:9 のいずれか。",
+    "fx": "残したい場所の横位置。0=左端 0.5=中央 1=右端。既定 0.5。",
+    "fy": "残したい場所の縦位置。0=上端 0.5=中央 1=下端。既定 0.5。",
+    "zoom": "1 より大きいと寄る。2 なら面積が半分の範囲を切り出す。既定 1。",
+    "width": "書き出す幅（px）。元画像が足りないときは引き伸ばさず、そのままの幅で出力します。",
+    "quality": "JPEG 品質。既定 86。",
+    "adjust": "軽微な補正。{ contrast, brightness } のみ。色味（彩度・色相）は変更しません。",
+    "sharpen": "false にすると縮小後のシャープを止めます。既定 true。"
+  },
+  "_tips": [
+    "「地平線をもう少し上に」→ fy を小さくする（0.50 → 0.40）",
+    "「もっと寄って」→ zoom を上げる（1 → 1.5）",
+    "「右の建物を切りたい」→ fx を小さくする（0.50 → 0.40）",
+    "「少しだけ締めたい」→ adjust: { \"contrast\": 1.05 }",
+    "彩度・色相の調整はできません。色味は元のまま保ちます。"
+  ],
+  "outputs": [
+    {
+      "key": "hero",
+      "out": "hero/hero-sp.jpg",
+      "source": "02-drone-wide.JPG",
+      "aspect": "9:16",
+      "fx": 0.48,
+      "fy": 0.5,
+      "width": 1400,
+      "quality": 84,
+      "_memo": "スマホ Hero。画面下40%はグラデーションと文字が重なるので、下側は静かな面に。山並みを上1/3に置く。",
+      "adjust": {
+        "contrast": 1.05
+      }
+    },
+    {
+      "key": "hero-wide",
+      "out": "hero/hero-pc.jpg",
+      "source": "02-drone-wide.JPG",
+      "aspect": "3:2",
+      "fx": 0.5,
+      "fy": 0.46,
+      "width": 2400,
+      "quality": 84,
+      "_memo": "PC Hero。16:9 より 3:2 のほうが切り落としが少ない。",
+      "adjust": {
+        "contrast": 1.05
+      }
+    },
+    {
+      "key": "grounds-aerial",
+      "out": "grounds/grounds-aerial.jpg",
+      "source": "04-drone-plots.JPG",
+      "aspect": "16:9",
+      "fx": 0.44,
+      "fy": 0.52,
+      "zoom": 1.15,
+      "width": 2000,
+      "_memo": "「14,000坪の境内」セクション。Hero（02）と同じ絵が二度出ないよう、区画の並びと森の広がりが見える 04 を使う。",
+      "adjust": {
+        "contrast": 1.05
+      }
+    },
+    {
+      "key": "plans-section",
+      "out": "grounds/plans-section.jpg",
+      "source": "09-kukaku-example.JPG",
+      "aspect": "16:9",
+      "fx": 0.5,
+      "fy": 0.52,
+      "zoom": 1.15,
+      "width": 2000,
+      "_memo": "費用ページ。上空からではなく目線の高さで、一区画の実際の姿を見せる。",
+      "adjust": {
+        "contrast": 1.03
+      }
+    },
+    {
+      "key": "story-under",
+      "out": "story/story-under.jpg",
+      "source": "19-circle-diagonal.JPG",
+      "aspect": "1:1",
+      "fx": 0.5,
+      "fy": 0.5,
+      "width": 1600,
+      "_memo": "物語③。夏の円形区画を目線の高さから。「木のもとへ」は上空からより地面の高さの方が伝わる。",
+      "adjust": {
+        "contrast": 1.03
+      }
+    },
+    {
+      "key": "monument-hoshi",
+      "out": "monuments/monument-hoshi.jpg",
+      "source": "01-monument-hoshi.JPG",
+      "aspect": "3:2",
+      "fx": 0.5,
+      "fy": 0.5,
+      "width": 2000,
+      "_memo": "「星と花と木のもとで」石碑。刻字が読める大きさを保つ。"
+    },
+    {
+      "key": "story-plant",
+      "out": "story/story-plant.jpg",
+      "source": "09-kukaku-example.JPG",
+      "aspect": "1:1",
+      "fx": 0.586,
+      "fy": 0.5,
+      "zoom": 2.4,
+      "width": 1600,
+      "_memo": "物語①「一本の木を、植える。」支柱を添えられた若木と、盛られたばかりの土。日陰で沈むため、ごく軽く起こす。",
+      "adjust": {
+        "contrast": 1.05,
+        "brightness": 1.05
+      }
+    },
+    {
+      "key": "story-seasons",
+      "out": "story/story-seasons.jpg",
+      "source": "14-eitaikuyo-circle.JPG",
+      "aspect": "1:1",
+      "fx": 0.48,
+      "fy": 0.75,
+      "zoom": 2.2,
+      "width": 1600,
+      "_memo": "物語②「その木と、季節を重ねる。」咲きそろったツツジ。原画左端の人物はこのトリミングで外れる。"
+    },
+    {
+      "key": "story-soil",
+      "out": "story/story-soil.jpg",
+      "source": "18-Ajisai.JPG",
+      "aspect": "1:1",
+      "fx": 0.36,
+      "fy": 0.74,
+      "zoom": 2.4,
+      "width": 1600,
+      "_memo": "物語④「土から生まれ、土へ還る。」落ち葉と木もれ日の地面。暫定。より土が主役の寄りが撮れたら差し替える。"
+    },
+    {
+      "key": "season-spring",
+      "out": "seasons/season-spring.jpg",
+      "source": "12-eitaikuyo-diagonal.JPG",
+      "aspect": "1:1",
+      "fx": 0.14,
+      "fy": 0.28,
+      "zoom": 2.6,
+      "width": 1600,
+      "_memo": "四季（春）。ピントは奥に来ているため桜はやわらかい。ピントの合った寄りの桜が撮れたら差し替える。",
+      "adjust": {
+        "contrast": 1.06
+      }
+    },
+    {
+      "key": "season-green",
+      "out": "seasons/season-green.jpg",
+      "source": "17-omairi-reien.JPG",
+      "aspect": "1:1",
+      "fx": 0.72,
+      "fy": 0.22,
+      "zoom": 1.9,
+      "width": 1600,
+      "_memo": "四季（初夏）。木もれ日の斜面。人物が入らない右側を使う。手前に山アジサイが大きく入ると story-soil（18）と似て見えるため、花が奥の点として写る位置まで上げてある。"
+    },
+    {
+      "key": "season-flower",
+      "out": "seasons/season-flower.jpg",
+      "source": "15-shakunage.JPG",
+      "aspect": "1:1",
+      "fx": 0.45,
+      "fy": 0.55,
+      "zoom": 1.15,
+      "width": 1600,
+      "_memo": "四季（花）。シャクナゲの寄り。"
+    },
+    {
+      "key": "season-autumn",
+      "out": "seasons/season-autumn.jpg",
+      "source": "09-kukaku-example.JPG",
+      "aspect": "1:1",
+      "fx": 0.88,
+      "fy": 0.2,
+      "zoom": 3.5,
+      "width": 1600,
+      "_memo": "四季（秋）。暫定。09 の右上、斜面の紅葉だけを切り出す。story-plant（同じ 09）とは切り出し範囲が重ならない位置を選んである（story-plant は x0.45〜0.73、こちらは x0.78〜0.98）。166px でも紅葉と分かることを優先した。ピントの合った紅葉の寄りが撮れたら差し替える。",
+      "adjust": {
+        "contrast": 1.04
+      }
+    },
+    {
+      "key": "monument-saigyo",
+      "out": "monuments/monument-saigyo.jpg",
+      "source": "06-saigyo-monument.JPG",
+      "aspect": "3:2",
+      "width": 2000,
+      "_memo": "西行法師の歌碑。全画のままだと石碑が横幅の36%しかなく、スマホ表示347pxでは歌が読めないため、少し寄せる。手前の桜は残す。",
+      "fx": 0.55,
+      "fy": 0.52,
+      "zoom": 1.3
+    },
+    {
+      "key": "monument-wa",
+      "out": "monuments/monument-wa.jpg",
+      "source": "10-eitaikuyo-mounment.JPG",
+      "aspect": "3:2",
+      "width": 2000,
+      "_memo": "「和」の石碑。刻字が最も大きく読める1枚。切らずにそのまま使う。※「和」が永代供養墓そのものかは未確認のため、この写真をもとに本文・キャプションで事実を新たに断定しないこと。確認が取れたら掲載場所（/about/ か /plans/ か）を見直す。"
+    },
+    {
+      "key": "memorial",
+      "out": "grounds/memorial.jpg",
+      "source": "07-tsuito-people.JPG",
+      "aspect": "16:9",
+      "fx": 0.9,
+      "fy": 0.52,
+      "zoom": 2.4,
+      "width": 2000,
+      "_memo": "合同追悼式。原画の左側には正面を向いた参列者が写っているため、右端いっぱいまで寄せ（fx は右端でクランプされる）、後ろ姿だけを残してある。zoom を 2.4 より下げると左から顔が入る。下げないこと。08-tsuito-chanting は顔が判別できるため使わない。"
+    },
+    {
+      "key": "about-grounds",
+      "out": "grounds/about-grounds.jpg",
+      "source": "13-circle-diagonal.JPG",
+      "aspect": "16:9",
+      "width": 2000,
+      "_memo": "平成院についてのページ。円形区画と満開の枝垂れ桜。05 より近く鮮明で、story-under との重複も避けられる。",
+      "fx": 0.48,
+      "fy": 0.52,
+      "zoom": 1.05,
+      "adjust": {
+        "contrast": 1.04
+      }
+    },
+    {
+      "key": "access-entrance",
+      "out": "grounds/access-entrance.jpg",
+      "source": "05-drone-monument-circle.JPG",
+      "aspect": "16:9",
+      "fx": 0.62,
+      "fy": 0.68,
+      "zoom": 1.6,
+      "width": 2000,
+      "quality": 82,
+      "_memo": "アクセスページ。暫定。入口そのものを写した写真がまだないため、霊園名を刻んだ石碑と進入路が入る範囲を使い、「着いたらこういう場所」が分かるようにしている。入口・看板の写真が撮れたら差し替える。現地は電波が弱い前提なので、やや強めに圧縮。",
+      "adjust": {
+        "contrast": 1.04
+      }
+    }
+  ]
+}

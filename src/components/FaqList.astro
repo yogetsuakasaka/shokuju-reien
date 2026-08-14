@@ -1,0 +1,28 @@
+---
+import faq from '../data/faq.json';
+
+interface Props {
+  /** true のときは top:true の項目だけを表示（TOPページ用の抜粋） */
+  onlyTop?: boolean;
+  /** 最初の項目を開いた状態にするか */
+  openFirst?: boolean;
+}
+
+const { onlyTop = false, openFirst = false } = Astro.props;
+const items = onlyTop ? faq.items.filter((i) => i.top) : faq.items;
+---
+
+<div class="faq">
+  {
+    items.map((item, index) => (
+      <details class="faq__item" id={`faq-${item.id}`} open={openFirst && index === 0}>
+        <summary class="faq__q">{item.q}</summary>
+        <div class="faq__a">
+          {item.a.map((p) => (
+            <p>{p}</p>
+          ))}
+        </div>
+      </details>
+    ))
+  }
+</div>
