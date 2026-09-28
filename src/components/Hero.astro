@@ -75,7 +75,17 @@ const wideImg = wide
 
   <div class="hero__inner wrap">
     <h1 class="hero__tagline" id="hero-title">{site.tagline}</h1>
-    <p class="hero__lede">{site.lede}</p>
+    <p class="hero__lede">
+      {
+        /* lede は1行でも、改行して見せたい複数行でも書ける（site.json の lede）。 */
+        (Array.isArray(site.lede) ? site.lede : [site.lede]).map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line}
+          </>
+        ))
+      }
+    </p>
     <div class="hero__actions">
       <a class="btn btn--onDark" href={site.office.telHref}>
         お電話でご相談 {site.office.tel}
