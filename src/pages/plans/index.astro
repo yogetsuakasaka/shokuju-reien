@@ -28,7 +28,7 @@ const jsonLd = [
   <div class="page-head wrap">
     <h1>費用・区画・永代供養</h1>
     <p class="lead">
-      平成院には、ご自身で花木を植える「植樹葬墓地」が2種類と、平成院が没後の供養を継続する「永代供養墓」があります。植樹葬墓地は、霊園規約が第三章「樹木葬墓地」に定める墓地です。使用は、会員一代限りです。
+      平成院には、ご自身で花木を植える「植樹葬墓地」が2種類と、平成院が没後の供養を継続する「永代供養墓」があります。植樹葬墓地は、当山の規約が「樹木葬墓地」と定める墓地です。使用は、会員一代限りです。
     </p>
   </div>
 
@@ -85,20 +85,6 @@ const jsonLd = [
         <p class="plan__price">
           <b>{plans.eternal.priceText}</b>
         </p>
-        <dl class="plan__meta">
-          {
-            plans.eternal.breakdown.map((b) => (
-              <div>
-                <dt>{b.label}</dt>
-                <dd>{b.amountText}</dd>
-              </div>
-            ))
-          }
-          <div>
-            <dt>年会費</dt>
-            <dd>{plans.eternal.annualFeeText.replace('年会費 ', '')}</dd>
-          </div>
-        </dl>
         <div class="plan__body">
           <p>{plans.eternal.succession}</p>
           <p style="margin-top:var(--s3)">{plans.eternal.storage}</p>
@@ -111,8 +97,6 @@ const jsonLd = [
   {/* ---------- 注記 ---------- */}
   <section class="section">
     <div class="wrap-text prose">
-      <p class="source-note">{plans.footnote}</p>
-
       <h2>ご相談・ご見学</h2>
       <p>費用や区画について、まずはお電話でお気軽にご相談ください。</p>
       <p style="margin-top:var(--s5)">

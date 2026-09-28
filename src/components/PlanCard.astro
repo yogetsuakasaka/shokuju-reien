@@ -24,17 +24,6 @@ const { plan } = Astro.props;
     <b>{plan.priceText}</b>
   </p>
 
-  <dl class="plan__meta">
-    <div>
-      <dt>入会金</dt>
-      <dd>{plan.entryFee}</dd>
-    </div>
-    <div>
-      <dt>年会費</dt>
-      <dd>{plan.annualFeeText}</dd>
-    </div>
-  </dl>
-
   <div class="plan__body">
     <p>{plan.treeRule}</p>
     {
