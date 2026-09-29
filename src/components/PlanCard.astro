@@ -25,7 +25,7 @@ const { plan } = Astro.props;
   </p>
 
   <div class="plan__body">
-    <p>{plan.treeRule}</p>
+    {plan.treeRule && <p>{plan.treeRule}</p>}
     {
       plan.species && (
         <ul class="chips">

@@ -18,7 +18,7 @@
       "entryFee": "入会金なし",
       "annualFee": 5000,
       "annualFeeText": "年会費 5,000円",
-      "treeRule": "リストに記載された樹木の中から、お好きな花木を選んで植樹できます。",
+      "treeRule": "",
       "species": null
     },
     {
@@ -31,16 +31,15 @@
       "entryFee": "入会金なし",
       "annualFee": 5000,
       "annualFeeText": "年会費 5,000円",
-      "treeRule": "植樹できる樹種が次の3種に限られます。",
+      "treeRule": "植樹できる樹種が次の2種に限られます。",
       "species": [
         "ツツジ",
-        "サツキ",
-        "ヤマアジサイ「紅（くれない）」"
+        "サツキ"
       ]
     }
   ],
   "burialWork": {
-    "name": "第2期植樹葬墓地の埋葬作業代",
+    "name": "埋蔵作業代",
     "price": 5000,
     "priceText": "5,000円",
     "note": "当山檀信徒を除き、埋葬1回につき5,000円です。"
