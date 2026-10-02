@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import site from '../../data/site.json';
+import rules from '../../data/rules.json';
+
+const title = '霊園規約';
+const description =
+  '青松山 平成院 植樹葬霊園の規約。宗教・宗派（第3条）、樹木葬墓地の趣旨（第13条）、儀礼と合同追悼式（第18条）など、当サイトの記載の根拠となる重要事項と、規約全文を掲載します。';
+
+/**
+ * 二段構成のページ。
+ *   1. 重要事項（規約の内容にもとづく要点）
+ *   2. 規約全文（原文をそのまま掲載する）
+ *
+ * 全文は src/data/rules.json の fullText.articles に入れる。
+ * 原文が未入手のあいだは available:false とし、その旨を明示する。
+ * 条文を推測で書き起こさないこと（CLAUDE.md 第2章）。
+ */
+const { summary, fullText } = rules;
+
+/**
+ * 章のアンカーID。規約全文は長いため、章へ直接飛べるようにする。
+ * 章名が現れた順に chapter-1, chapter-2 … を割り当てる。
+ * 章名そのものをIDにしないのは、全角スペースを含むため。
+ */
+const chapterIds = new Map<string, string>();
+for (const a of fullText.articles ?? []) {
+  if (!chapterIds.has(a.chapter)) chapterIds.set(a.chapter, `chapter-${chapterIds.size + 1}`);
+}
+const chapters = [...chapterIds].map(([name, id]) => ({ name, id }));
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://shokuju-reien.jp/' },
+      { '@type': 'ListItem', position: 2, name: '霊園規約', item: 'https://shokuju-reien.jp/rules/' },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} path="/rules/" jsonLd={jsonLd}>
+  <Breadcrumb current="霊園規約" />
+
+  <div class="page-head wrap">
+    <h1>霊園規約</h1>
+    <p>
+      {
+        fullText.available
+          ? '前半に重要事項を、後半に規約の全文を掲載しています。'
+          : '前半に重要事項を掲載しています。規約全文の掲載は、現在準備中です。'
+      }
+    </p>
+  </div>
+
+  {/* ページ内目次 */}
+  <nav class="wrap-text section--tight" aria-label="このページの内容">
+    <ul class="linkcards">
+      <li><a href="#important">重要事項</a></li>
+      <li><a href="#fulltext">規約全文</a></li>
+    </ul>
+  </nav>
+
+  {/* ---------- 1. 重要事項 ---------- */}
+  <section class="section wrap-text prose" aria-labelledby="important">
+    <h2 id="important">重要事項</h2>
+    <p class="source-note">
+      ここに記載しているのは、霊園規約の内容にもとづく要点です。条文そのものの表記ではありません。正式な文言は、後半の「規約全文」をご覧ください。
+    </p>
+
+    {
+      summary.map((s) => (
+        <section id={s.id} style="margin-top:var(--s7)">
+          <h3>{s.heading}</h3>
+          <ul style="margin-top:var(--s4)">
+            {s.points.map((p) => (
+              <li>{p}</li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </section>
+
+  {/* ---------- 2. 規約全文 ---------- */}
+  <section class="section section--stone" aria-labelledby="fulltext">
+    <div class="wrap-text prose">
+      <h2 id="fulltext">規約全文</h2>
+
+      {
+        fullText.available ? (
+          <>
+            <p class="source-note">{fullText.sourceNote}</p>
+            {fullText.preface?.length > 0 && (
+              <div class="preface">
+                {fullText.preface.map((t) => (
+                  <p>{t}</p>
+                ))}
+              </div>
+            )}
+
+            {/* 章へのアンカー。全文が長いため、読みたい章へ直接移動できるようにする */}
+            {chapters.length > 0 && (
+              <nav class="chapter-nav" aria-label="規約全文の章">
+                <ul class="linkcards">
+                  {chapters.map((c) => (
+                    <li>
+                      <a href={`#${c.id}`}>{c.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
+
+            {fullText.articles.map((a, i) => (
+              <>
+                {a.chapter !== fullText.articles[i - 1]?.chapter && (
+                  <h3 class="chapter-head" id={chapterIds.get(a.chapter)}>
+                    {a.chapter}
+                  </h3>
+                )}
+                <article class="article" id={`art-${i + 1}`}>
+                  {/* 附則は章見出しと同じ文字列になるため、条の見出しは出さない */}
+                  {a.no !== a.chapter && (
+                    <h4 class="article__no">{a.title ? `${a.no}（${a.title}）` : a.no}</h4>
+                  )}
+                  {a.paragraphs.map((para) => (
+                    <p class="article__body">{para}</p>
+                  ))}
+                </article>
+                {a.chapter !== fullText.articles[i + 1]?.chapter && (
+                  <p class="chapter-back">
+                    <a class="link-more" href="#fulltext">
+                      規約全文の先頭へ戻る
+                    </a>
+                  </p>
+                )}
+              </>
+            ))}
+          </>
+        ) : (
+          <>
+            <p>
+              規約全文のこのページへの掲載は、現在準備中です。要約ではなく原文をそのまま掲載するため、正式な条文を確認したうえで公開します。
+            </p>
+            <p>
+              お急ぎの方、いますぐ全文をご確認になりたい方は、霊園事務局へお問い合わせください。
+            </p>
+            <p style="margin-top:var(--s5)">
+              <a class="tel-big" href={site.office.telHref}>
+                <span aria-hidden="true">☎</span>
+                {site.office.tel}
+              </a>
+            </p>
+            <p class="note">
+              {site.hachinohe.label}　<a href={site.hachinohe.telHref}>{site.hachinohe.tel}</a>
+            </p>
+          </>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section wrap-text">
+    <ul class="linkcards">
+      <li><a href="/concept/">植樹葬とは</a></li>
+      <li><a href="/plans/">費用と区画</a></li>
+      <li><a href="/faq/">よくあるご質問</a></li>
+      <li><a href="/access/">アクセス・ご見学</a></li>
+    </ul>
+  </section>
+</BaseLayout>

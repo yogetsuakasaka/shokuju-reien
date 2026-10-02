@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import FaqList from '../../components/FaqList.astro';
+import faq from '../../data/faq.json';
+import site from '../../data/site.json';
+
+const title = 'よくあるご質問｜樹木葬と植樹葬について';
+const description =
+  '青松山 平成院 植樹葬霊園によくいただくご質問。樹木葬と植樹葬の関係、宗教・宗派、生前のお申し込み、花木の選び方、焼骨の埋蔵方法、樹木が枯れた場合、契約の解除、会費についてお答えします。';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.items.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a.join(' '),
+      },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://shokuju-reien.jp/' },
+      { '@type': 'ListItem', position: 2, name: 'よくあるご質問', item: 'https://shokuju-reien.jp/faq/' },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} path="/faq/" jsonLd={jsonLd}>
+  <Breadcrumb current="よくあるご質問" />
+
+  <div class="page-head wrap">
+    <h1>よくあるご質問</h1>
+    <p>
+      樹木葬・植樹葬のお申し込みや費用について、よくいただくご質問をまとめました。掲載しているのは、旧公式サイトおよび霊園規約で確認できた内容です。記載のないことは、霊園事務局へお問い合わせください。
+    </p>
+  </div>
+
+  <section class="section wrap-text">
+    <FaqList openFirst />
+  </section>
+
+  <section class="section--tight">
+    <div class="wrap-text" style="text-align:center">
+      <h2 class="section__title">お電話でおたずねください</h2>
+      <p style="margin-top:var(--s5)">
+        <a class="tel-big" href={site.office.telHref}>
+          <span aria-hidden="true">☎</span>{site.office.tel}
+        </a>
+      </p>
+      <p class="note">
+        {site.hachinohe.label}　<a href={site.hachinohe.telHref}>{site.hachinohe.tel}</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

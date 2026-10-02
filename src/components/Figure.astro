@@ -1,0 +1,67 @@
+---
+/**
+ * 写真を1枚表示する。src/data/images.json のキーを name に渡すだけで使える。
+ * まだ写真が入っていないキーは、自動的にプレースホルダーになる。
+ */
+import { Image } from 'astro:assets';
+import imagesData from '../data/images.json';
+
+interface Props {
+  name: string;
+  class?: string;
+  sizes?: string;
+  caption?: string;
+}
+
+const { name, class: className = '', sizes = '100vw', caption } = Astro.props;
+
+const entry = (imagesData.images as Record<string, any>)[name];
+if (!entry) {
+  throw new Error(`[Figure] src/data/images.json に "${name}" の定義がありません。`);
+}
+
+// work/ は切り出し前の作業用画像、source/ は元画像の保管庫。
+// どちらも glob に含めると、未使用の大きな画像まで公開ビルドに出力されてしまうため除外する。
+// この除外を外さないこと（外すと 3000px の作業用マスターがそのまま公開されます）。
+const files = import.meta.glob<{ default: ImageMetadata }>(
+  [
+    '/src/images/**/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG}',
+    '!/src/images/work/**',
+    '!/src/images/source/**',
+  ],
+  { eager: true }
+);
+
+let img: ImageMetadata | undefined;
+if (entry.file) {
+  const mod = files[`/src/images/${entry.file}`];
+  if (!mod) {
+    throw new Error(
+      `[Figure] src/images/${entry.file} が見つかりません（images.json のキー "${name}"）。ファイル名を確認してください。`
+    );
+  }
+  img = mod.default;
+}
+---
+
+<figure class:list={['figure', className]}>
+  {
+    img ? (
+      <Image
+        src={img}
+        alt={entry.alt}
+        sizes={sizes}
+        widths={[480, 768, 1080, 1600]}
+        quality={72}
+        loading="lazy"
+        decoding="async"
+        style={`aspect-ratio:${entry.aspect};object-fit:cover;width:100%;height:auto;`}
+      />
+    ) : (
+      <div class="ph" style={`aspect-ratio:${entry.aspect}`} aria-hidden="true">
+        <p class="ph__label">写真が入ります／{entry.want}</p>
+      </div>
+    )
+  }
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

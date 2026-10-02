@@ -1,0 +1,13 @@
+---
+interface Props {
+  current: string;
+}
+const { current } = Astro.props;
+---
+
+<nav class="breadcrumb wrap" aria-label="現在位置">
+  <ol>
+    <li><a href="/">ホーム</a></li>
+    <li aria-current="page">{current}</li>
+  </ol>
+</nav>
