@@ -8,7 +8,7 @@ import site from '../../data/site.json';
 
 const title = '費用・区画・永代供養｜岩手の樹木葬';
 const description =
-  '青松山 平成院 植樹葬霊園の費用。樹木選択型墓地 300,000円、樹木限定型墓地 200,000円、いずれも入会金なし・年会費5,000円。永代供養墓は400,000円・年会費3,000円です。';
+  '青松山 平成院 植樹葬霊園の費用。樹木選択型墓地 300,000円、樹木限定型墓地 200,000円、永代供養墓 400,000円。表示価格はすべて税込です。区画の広さ、埋蔵作業代、植樹についてもご案内します。';
 
 const jsonLd = [
   {
@@ -84,6 +84,8 @@ const jsonLd = [
           <p style="margin-top:var(--s3)">{plans.eternal.afterTerm}</p>
         </div>
       </div>
+
+      <p class="note" style="margin-top:var(--s5)">{plans.taxNote}</p>
     </div>
   </section>
 
