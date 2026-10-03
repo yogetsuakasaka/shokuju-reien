@@ -57,13 +57,17 @@ const jsonLd = [
 
     <h3>樹木選択型墓地の場合</h3>
     <p>樹木選択型墓地では、現在次のような花木が選択されています。</p>
-    <ul class="chips" style="margin-top:var(--s4)">
-      {trees.memorialTrees.map((t) => <li>{t.name}{t.note ? `（${t.note}）` : ''}</li>)}
+    <ul class="chips chips--grid" style="margin-top:var(--s4)">
+      {
+        trees.memorialTrees.map((t) => (
+          <li>{t.name}{t.note && <span class="chips__note">（{t.note}）</span>}</li>
+        ))
+      }
     </ul>
 
     <h3>樹木限定型墓地の場合</h3>
     <p>樹木限定型墓地では、植樹できる花木は次の2種に限定しております。</p>
-    <ul class="chips" style="margin-top:var(--s4)">
+    <ul class="chips chips--grid" style="margin-top:var(--s4)">
       {trees.limitedTypeSpecies.map((s) => <li>{s}</li>)}
     </ul>
 
