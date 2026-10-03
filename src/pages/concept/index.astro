@@ -5,9 +5,9 @@ import Figure from '../../components/Figure.astro';
 import site from '../../data/site.json';
 import trees from '../../data/trees.json';
 
-const title = '植樹葬とは｜自分の木を植える樹木葬';
+const title = '植樹葬とは｜自ら植えた木のもとに眠る樹木葬';
 const description =
-  '平成院の植樹葬は、生前にご自身で墓標となる花木を選び、苗木を植えるところから始まります。没後は自ら植えた花木のもとに埋蔵されます。植樹葬の考え方、墓地の類型、選べる花木をご説明します。';
+  '平成院の植樹葬は、生前にご自身で墓標となる花木を選んで苗木を植え、没後はその木のもとに埋蔵される樹木葬です。岩手県洋野町の青松山 平成院が、植樹葬の考え方、墓地の類型と花木、埋蔵の方法をご説明します。';
 
 const jsonLd = [
   {
@@ -57,13 +57,17 @@ const jsonLd = [
 
     <h3>樹木選択型墓地の場合</h3>
     <p>樹木選択型墓地では、現在次のような花木が選択されています。</p>
-    <ul class="chips" style="margin-top:var(--s4)">
-      {trees.memorialTrees.map((t) => <li>{t.name}{t.note ? `（${t.note}）` : ''}</li>)}
+    <ul class="chips chips--grid" style="margin-top:var(--s4)">
+      {
+        trees.memorialTrees.map((t) => (
+          <li>{t.name}{t.note && <span class="chips__note">（{t.note}）</span>}</li>
+        ))
+      }
     </ul>
 
     <h3>樹木限定型墓地の場合</h3>
     <p>樹木限定型墓地では、植樹できる花木は次の2種に限定しております。</p>
-    <ul class="chips" style="margin-top:var(--s4)">
+    <ul class="chips chips--grid" style="margin-top:var(--s4)">
       {trees.limitedTypeSpecies.map((s) => <li>{s}</li>)}
     </ul>
 
