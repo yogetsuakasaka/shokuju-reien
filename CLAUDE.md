@@ -324,6 +324,7 @@ scripts/
 ├── image-recipes.json 切り出し方の設計図
 ├── check-todo.mjs     未確認プレースホルダの検査
 └── check-exif.mjs     画像に EXIF（位置情報）が残っていないかの検査
+tools/site-report/     週次・月次の分析レポート（Apps Script。サイトのビルドには含まれない）
 public/
 ├── robots.txt
 ├── _redirects     旧URL（pgNN.html）からの転送 ※対応が判明したら追記
@@ -381,6 +382,8 @@ Google アナリティクス 4（GA4）を使います。設定は **`src/data/a
   （Google アナリティクスの利用規約で、利用の開示が求められています）
 - GA4 の測定ID（`G-` で始まる）は秘密情報ではありません。
   **API キーなどの秘密情報は、公開リポジトリであるここに置かない**
+- 週次・月次レポートは `tools/site-report/`（スプレッドシート＋Apps Script＋Claude API）。
+  API キーは Apps Script の「スクリプト プロパティ」にだけ保存する。設定手順は同フォルダの README.md
 
 ---
 
