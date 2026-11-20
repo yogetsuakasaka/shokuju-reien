@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import site from '../../data/site.json';
+
+/**
+ * Google アナリティクスの利用規約で求められている、アクセス解析の利用の開示。
+ * 計測内容を変えたとき（イベントの追加など）は、このページの記載も合わせて直すこと。
+ */
+const title = 'アクセス解析について';
+const description =
+  '青松山 平成院 植樹葬霊園のウェブサイトでは、サイトの改善のために Google アナリティクスを利用しています。収集する情報と、無効にする方法をご案内します。';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://shokuju-reien.jp/' },
+      { '@type': 'ListItem', position: 2, name: 'アクセス解析について', item: 'https://shokuju-reien.jp/privacy/' },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} path="/privacy/" jsonLd={jsonLd}>
+  <Breadcrumb current="アクセス解析について" />
+
+  <div class="page-head wrap">
+    <h1>アクセス解析について</h1>
+  </div>
+
+  <div class="wrap-text prose section">
+    <h2>Google アナリティクスの利用</h2>
+    <p>
+      当サイトでは、どのページがよく読まれているかを把握し、内容の改善に役立てるため、Google LLC が提供する「Google アナリティクス」を利用しています。
+    </p>
+
+    <h2>収集する情報</h2>
+    <p>Google アナリティクスは Cookie を使用して、次のような情報を収集します。</p>
+    <ul>
+      <li>閲覧したページと、閲覧した日時</li>
+      <li>当サイトに来る前に見ていたサイトや、検索に使われた経路</li>
+      <li>お使いの端末やブラウザーの種類</li>
+      <li>おおよその地域</li>
+      <li>当サイトの電話番号のリンクを押したこと、およびそのリンクのページ内の位置</li>
+    </ul>
+    <p>
+      氏名・住所・電話番号・メールアドレスなど、個人を特定する情報は収集していません。電話番号のリンクを押した場合も、お客様の電話番号や通話の内容は記録されません。
+    </p>
+
+    <h2>データの取り扱い</h2>
+    <p>
+      収集された情報は、Google のプライバシーポリシーにもとづいて管理されます。詳しくは、Google の説明をご覧ください。
+    </p>
+    <ul>
+      <li>
+        <a href="https://policies.google.com/technologies/partner-sites?hl=ja" rel="noopener noreferrer" target="_blank">
+          Google のサービスを使用するサイトやアプリから収集した情報の Google による使用（外部サイト）
+        </a>
+      </li>
+      <li>
+        <a href="https://policies.google.com/privacy?hl=ja" rel="noopener noreferrer" target="_blank">
+          Google プライバシーポリシー（外部サイト）
+        </a>
+      </li>
+    </ul>
+
+    <h2>無効にする方法</h2>
+    <p>
+      ブラウザーの設定で Cookie を無効にするか、Google が提供する「Google アナリティクス オプトアウト アドオン」を使うと、情報の収集を止めることができます。
+    </p>
+    <ul>
+      <li>
+        <a href="https://tools.google.com/dlpage/gaoptout?hl=ja" rel="noopener noreferrer" target="_blank">
+          Google アナリティクス オプトアウト アドオン（外部サイト）
+        </a>
+      </li>
+    </ul>
+
+    <h2>お問い合わせ</h2>
+    <p>
+      このページについてのお問い合わせは、霊園事務局（<a href={site.office.telHref}>{site.office.tel}</a>）までお電話ください。
+    </p>
+  </div>
+</BaseLayout>

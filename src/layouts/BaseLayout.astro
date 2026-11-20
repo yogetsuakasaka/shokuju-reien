@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CtaBar from '../components/CtaBar.astro';
 import site from '../data/site.json';
+import analytics from '../data/analytics.json';
 
 interface Props {
   title: string;
@@ -25,6 +26,17 @@ const fullTitle = path === '/' ? title : `${title}｜${site.shortName}`;
  */
 const ogImage = new URL('/ogp.jpg', Astro.site ?? 'https://shokuju-reien.jp').href;
 const ogImageAlt = '上空から見た青松山 平成院の境内と、周囲の山あいの森';
+
+/**
+ * アクセス解析（GA4）。設定は src/data/analytics.json。
+ * 測定IDが空のあいだは何も出力しない。本番ドメインで開いたときだけ読み込む。
+ * 電話番号の数字 → 回線名。GA4 には番号そのものではなく回線名だけを送る。
+ */
+const gaId = analytics.ga4MeasurementId.trim();
+const phoneLines = {
+  [site.office.telHref.replace(/\D/g, '')]: 'office',
+  [site.hachinohe.telHref.replace(/\D/g, '')]: 'hachinohe',
+};
 ---
 
 <!doctype html>
@@ -58,6 +70,47 @@ const ogImageAlt = '上空から見た青松山 平成院の境内と、周囲�
       jsonLd.map((data) => (
         <script type="application/ld+json" set:html={JSON.stringify(data)} />
       ))
+    }
+
+    {
+      gaId && (
+        <script define:vars={{ gaId, host: analytics.productionHost, phoneLines }}>
+          // 本番ドメイン以外（プレビュー・手元の確認）では読み込まない。
+          if (location.hostname === host) {
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = function () {
+              window.dataLayer.push(arguments);
+            };
+            gtag('js', new Date());
+            gtag('config', gaId);
+
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(gaId);
+            document.head.appendChild(s);
+
+            // 電話番号リンクのタップを phone_click として記録する。
+            // 送るのは「どちらの回線か」と「ページ内のどこのリンクか」だけ。
+            document.addEventListener('click', function (e) {
+              var a = e.target.closest && e.target.closest('a[href^="tel:"]');
+              if (!a) return;
+              var place = a.closest('.cta-bar')
+                ? 'cta_bar'
+                : a.closest('.site-header')
+                  ? 'header'
+                  : a.closest('.hero')
+                    ? 'hero'
+                    : a.closest('.site-footer')
+                      ? 'footer'
+                      : 'body';
+              gtag('event', 'phone_click', {
+                phone_line: phoneLines[a.getAttribute('href').replace(/\D/g, '')] || 'other',
+                link_location: place,
+              });
+            });
+          }
+        </script>
+      )
     }
 
     <script is:inline>

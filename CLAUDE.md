@@ -310,14 +310,15 @@ src/
 │   ├── faq.json       よくあるご質問
 │   ├── trees.json     花木
 │   ├── rules.json     霊園規約（重要事項＋全文）
-│   └── images.json    写真の一元管理
+│   ├── images.json    写真の一元管理
+│   └── analytics.json アクセス解析（GA4 の測定ID）
 ├── images/            サイトで使う写真（npm run images が生成）
 │   ├── work/          写真のアップロード先（公開ビルドには含まれない）
 │   └── source/        元画像の保管庫（Git管理外）
 ├── styles/global.css  デザイントークンと全スタイル
 ├── components/    Header / Footer / Hero / Figure / FaqList / PlanCard / CtaBar / Breadcrumb
 ├── layouts/BaseLayout.astro   <head>・SEO・JSON-LD・スクリプト
-└── pages/         / concept / plans / faq / access / about / rules / 404
+└── pages/         / concept / plans / faq / access / about / rules / privacy / 404
 scripts/
 ├── derive-images.mjs  作業用画像から派生画像を生成
 ├── image-recipes.json 切り出し方の設計図
@@ -363,6 +364,23 @@ public/
   現在使っているのは `Cemetery` / `FAQPage` / `BreadcrumbList` の3つです。
   緯度経度・営業時間は未確認のため入れていません。
 - `sitemap-index.xml` は自動生成されます。
+
+## 9-2. アクセス解析のルール
+
+Google アナリティクス 4（GA4）を使います。設定は **`src/data/analytics.json` だけ**です。
+
+- 計測コードは **`src/layouts/BaseLayout.astro` の1か所だけ**から出ます。
+  **GTM や Cloudflare Zaraz・Web Analytics などで GA4 を重ねて設置しない**（二重計測になる）
+- `ga4MeasurementId` が空のあいだは、計測コードを一切出力しません
+- 計測は **本番ドメイン（`productionHost`）で開いたときだけ**動きます。プレビューや手元の確認では送信しません
+- 記録しているイベントは、標準の計測に加えて **`phone_click`（電話番号リンクのタップ）だけ**です。
+  送るのは `phone_line`（office / hachinohe）と `link_location`（header / hero / cta_bar / body / footer）のみ
+- **訪問者の氏名・メールアドレス・電話番号・入力内容を、GA4 に送らないこと**。URL にも載せない
+- サイトにフォームはありません。`generate_lead` は、将来フォームを作ったときの送信完了に使います
+- 計測の内容を変えたら、**`/privacy/`（アクセス解析について）の記載も必ず直す**
+  （Google アナリティクスの利用規約で、利用の開示が求められています）
+- GA4 の測定ID（`G-` で始まる）は秘密情報ではありません。
+  **API キーなどの秘密情報は、公開リポジトリであるここに置かない**
 
 ---
 

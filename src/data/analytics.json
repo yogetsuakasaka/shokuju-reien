@@ -1,0 +1,12 @@
+{
+  "_note": "アクセス解析（Google アナリティクス 4）の設定。計測コードは src/layouts/BaseLayout.astro の1か所だけから出力される。",
+  "_rule": [
+    "ga4MeasurementId が空文字のあいだは、計測コードを一切出力しない。",
+    "計測は productionHost（本番ドメイン）で開いたときだけ動く。プレビュー（*.workers.dev）や手元の確認では送信しない。",
+    "氏名・メールアドレス・電話番号など、訪問者の個人情報は GA4 へ送らないこと。",
+    "GTM や Cloudflare Zaraz など、別の経路で GA4 を重ねて設置しないこと（二重計測になる）。"
+  ],
+
+  "ga4MeasurementId": "",
+  "productionHost": "shokuju-reien.jp"
+}

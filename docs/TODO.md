@@ -104,7 +104,7 @@
 
 ### A-6. ドメイン・公開作業
 
-- [ ] ★ `shokuju-reien.jp` の登録状況の確認（失効していないか）
+- ✅ `shokuju-reien.jp` の登録状況 — 失効していない（スタードメインで管理。DNS は Cloudflare）
 - [ ] ★ **Preview URL（`*.workers.dev`）を検索エンジンにインデックスさせない設定**。
       Cloudflare 管理画面での操作が必要です。
       **`public/_headers` や BaseLayout に noindex を書かないこと**
@@ -113,9 +113,22 @@
       推奨は Cloudflare Zero Trust の Access を Preview のホスト名にかけること
       （コード側は一切変更せず、本番へ混入する経路がありません）。
       独自ドメイン接続後は、Workers の設定で `workers.dev` を無効化するのが最終形です
-- [ ] Cloudflare Pages への接続（ビルド `npm run build` / 出力 `dist`）
-- [ ] 公開後、Google Search Console にサイトマップを送信
+- ✅ Cloudflare への接続（Workers Builds。`main` が本番、それ以外のブランチはプレビュー）
+- ✅ Google Search Console の登録（ドメイン プロパティ・DNS の TXT で確認）とサイトマップ送信
 - [ ] **Google ビジネスプロフィールの整備**（サイトより先に効きます。NAPをサイトと完全一致させる）
+
+### A-7. アクセス解析（GA4）
+
+> サイト側の準備は完了しています（CLAUDE.md「9-2. アクセス解析のルール」）。
+> `src/data/analytics.json` に測定IDを入れると計測が始まります。
+
+- [ ] ★ GA4 プロパティを作成し、測定ID（`G-`）を `analytics.json` に入れる
+- [ ] ★ Cloudflare で、Web Analytics の自動挿入と Zaraz に GA4 が設定されていないことを確認（二重計測の防止）
+- [ ] GA4 の管理画面で、`phone_click` をキーイベントに設定
+- [ ] GA4 の管理画面で、データ保持期間を14か月にし、Google シグナルはオフのままにする
+- [ ] GA4 と Search Console をリンクする（GA4 の管理画面から。無料）
+- [ ] 週次・月次レポート（スプレッドシート＋Apps Script＋Claude API）の構築
+- [ ] 事務局での問い合わせ記録シートの運用（日付・種別・きっかけのみ。氏名や電話番号は記録しない）
 
 ---
 
